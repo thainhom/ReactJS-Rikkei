@@ -1,18 +1,31 @@
 import React from "react";
-import Parentercomponent from "./Parentercomponent";
 
 class App extends React.Component {
+  constructor() {
+    super();
+    this.state = { studentName: "Phương" };
+
+    this.changeStudentName = this.changeStudentName.bind(this);
+    this.state = { number: 0 };
+  }
+
+  changeStudentName() {
+    this.setState({ studentName: "Sáng" });
+  }
+
+  increaseNumber() {
+    this.setState({
+      number: this.state.number + 1,
+    });
+  }
+
   render() {
-    user = {
-      users: [
-        { id: "user1", title: "op", salary: "300 $" },
-        { id: "user2", title: "RV", salary: "500 $" },
-        { id: "user3", title: "lead", salary: "2000 $" },
-      ],
-    };
     return (
       <div>
-        <Parentercomponent a={this.state.user} />
+        Student name: {this.state.studentName}
+        <button onClick={this.changeStudentName}>Change student name</button>
+        <p>Number: {this.state.number}</p>
+        <button onClick={() => this.increaseNumber()}>Tăng lên 1</button>
       </div>
     );
   }
