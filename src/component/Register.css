@@ -1,0 +1,21 @@
+.register{
+
+    height: 100vh;
+    color: blue;
+    display: flex;
+   align-items: center;
+   justify-content: center;
+
+padding: 48px;
+box-shadow: opx opx 21px rgb(red, green, blue);
+    background-color: aliceblue;
+}
+label{
+    display: block;
+}
+input{
+width: 100%;
+}
+   .button{
+    margin-right: 10px;
+   }

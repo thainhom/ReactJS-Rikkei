@@ -1,10 +1,18 @@
-import React from "react";
-
+import { toHaveAccessibleName } from "@testing-library/jest-dom/matchers";
+import React from "react"
+import Register from "./component/Register"
+import "./App.css"
 class App extends React.Component {
+ 
+  
   render() {
+
     return (
-      <div>
-      </div>
+     <div className="Register">
+        <Register/>
+      
+     </div>
+   
     );
   }
 }
