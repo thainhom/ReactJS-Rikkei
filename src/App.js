@@ -4,17 +4,18 @@ import Register from "./component/Register"
 import "./App.css"
 import Login from "./component/Login";
 class App extends React.Component {
- 
-  
+
+
   render() {
 
     return (
-     <div className="Register">
-        <Register/>
+      <div className="Register">
+        <Register />
+        <hr></hr>
         <Login />
-      
-     </div>
-   
+
+      </div>
+
     );
   }
 }

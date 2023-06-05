@@ -13,7 +13,7 @@ class Register extends React.Component {
         password: "",
         comfirmpassword: ""
       },
-// cho error rong
+      // cho error rong
       error: {},
 
     }
@@ -36,11 +36,11 @@ class Register extends React.Component {
 
   // }
   handleChange = (e) => {
-   // copy tk form ow tren state
+    // copy tk form ow tren state
     const data = { ...this.state.form }
- //lay gia tri cua input nho phai bo trong []
+    //lay gia tri cua input nho phai bo trong []
     data[e.target.name] = e.target.value
-// gan data lai cho tk form de setState
+    // gan data lai cho tk form de setState
     this.setState({
       form: data,
 
@@ -80,45 +80,45 @@ class Register extends React.Component {
     console.log(error);
     return (
       <div className="register">
-      
-          {/* {Object.keys(error).length > 0}{alert("vui long ktr du lieu cua ban")} */}
-          
+
+        {/* {Object.keys(error).length > 0}{alert("vui long ktr du lieu cua ban")} */}
+
         <div className="ctn-btn">
           <h1>ACCount Register</h1>
-         
+
           <form onSubmit={this.handleSubmit}>
-        
+
             <div className="email">
               <label>Eamil</label>
-              <input 
-              // value={this.state.email}
-             
+              <input
+                // value={this.state.email}
+
                 id="email" placeholder="eamil"
                 type="text" name="email"
                 onChange={this.handleChange} />
-                {/* in error ra element */}
+              {/* in error ra element */}
               {error.email && <span className="error">{error.email}</span>}
-              
+
             </div>
             <div className="password">
               <label>Password</label>
-              <input 
-              // value={this.state.password}
+              <input
+                // value={this.state.password}
                 id="password" placeholder="Password"
                 type="password" name="password"
                 onChange={this.handleChange} />
-                 {/* in error ra element */}
-               {error.password && <span className="error">{error.password}</span>}
+              {/* in error ra element */}
+              {error.password && <span className="error">{error.password}</span>}
             </div>
             <div className="comfirmpassword">
-            <label>comfirmpassword</label>
+              <label>comfirmpassword</label>
               <input
                 // value={this.state.comfirmpassword}
                 id="comfirmpassword" placeholder="comfirmpassword"
                 type="password" name="comfirmpassword"
                 onChange={this.handleChange} />
-                 {/* in error ra element */}
-               {error.comfirmpassword && <span className="error">{error.comfirmpassword}</span>}
+              {/* in error ra element */}
+              {error.comfirmpassword && <span className="error">{error.comfirmpassword}</span>}
             </div>
             <button className="button" type="submit" onClick={this.hanndleAdd}>Register</button>
           </form>
