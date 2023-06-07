@@ -1,12 +1,3 @@
-import React from "react";
-
-class App extends React.Component {
-  render() {
-    return (
-      <div>
-      </div>
-    );
-  }
-}
-
+import { Input } from 'antd';
+const App = () => <Input placeholder="Basic usage" />;
 export default App;
