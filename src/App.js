@@ -56,6 +56,10 @@ class App extends React.Component {
 
     this.setState({ newtodos: event.target.value })
   }
+  handleEditTodo = () => {
+
+  }
+
   // handleAddTodo = () => {
 
   //   const { todos, newTodos } = this.state;
