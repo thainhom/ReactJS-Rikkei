@@ -18,7 +18,8 @@ class App extends React.Component {
       todos: [],
       newtodos: "",
       show: false,
-      error: ""
+      error: "",
+      index: 0
     }
   }
   // HÀM SHOW BẢNG Modal
@@ -40,7 +41,8 @@ class App extends React.Component {
       })
     } else {
       //mutate -> tác động trực tiếp đến dữ liệu -> không nên dùng push mà dùng spread như dưới
-      let updateadd = [...this.state.todos, this.state.newtodos]
+      const { error, todos, newtodos } = this.state
+      let updateadd = [...todos, newtodos]
       await this.setState({
         todos: updateadd,
         newtodos: "",
@@ -53,10 +55,24 @@ class App extends React.Component {
   }
 
   handleChange = (event) => {
-
-    this.setState({ newtodos: event.target.value })
+    // đặt biến đê lấy được giá trị ô input nhập vào
+    const newtodos = event.target.value
+    // gan lại cho setstate đê nhận được item mới nhất
+    this.setState({ newtodos: newtodos })
   }
-  handleEditTodo = () => {
+  handleEditTodo = (index) => {
+
+
+    const { todos } = this.state
+
+    const edittodos = todos[index]
+
+    this.setState({
+      todos: edittodos,
+      newtodos: "",
+      show: true,
+      index: index
+    })
 
   }
 
@@ -122,13 +138,13 @@ class App extends React.Component {
   //     ))
   //   }
   render() {
-    const { error, newtodos, todos } = this.state
+    const { show, error, newtodos, todos } = this.state
     return (
       <div>
 
 
 
-
+        {/* navbar */}
         <Navbar bg="light" expand="lg">
           <Container fluid>
 
@@ -162,51 +178,48 @@ class App extends React.Component {
 
 
 
+        <Form >
+          <Button variant="outline-info" onClick={() => { this.handleShow() }}>
+            Add
+          </Button>
+          <Modal
+            show={this.state.show}
+            onHide={this.handleShow}
+            backdrop="static"
+            keyboard={false}
+          >
+            {/* modal , handleAdd */}
 
-        <Button variant="outline-info" onClick={() => { this.handleShow() }}>
-          Add
-        </Button>
-        <Modal
-          show={this.state.show}
-          onHide={this.handleShow}
-          backdrop="static"
-          keyboard={false}
-        >
-          <Modal.Header closeButton>
-            <Modal.Title>Thêm công việc cần làm</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
+            <Modal.Header closeButton>
+              <Modal.Title>Thêm công việc cần làm</Modal.Title>
+            </Modal.Header>
             <Modal.Body>
-              {/* <Form.Control type="text" value={this.state.newTodo} onChange={this.handleChange} /> */}
+              <Modal.Body>
+                {/* <Form.Control type="text" value={this.state.newTodo} onChange={this.handleChange} /> */}
+              </Modal.Body>
+              <Form.Control
+                onChange={this.handleChange}
+                value={newtodos}
+                type="text" />
+              {error && <p>{error}</p>}
             </Modal.Body>
-            <Form.Control
-              onChange={this.handleChange}
-              value={newtodos}
-              type="text" />
-            {error && <p>{error}</p>}
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={this.handleShow}>
-              Close
-            </Button>
-            <Button
+            <Modal.Footer>
+              <Button variant="secondary" onClick={this.handleShow}>
+                Close
+              </Button>
+              <Button
 
-              onClick={this.handleAdd}
-              variant="primary">Save</Button>
-          </Modal.Footer>
-        </Modal>
-
-
-
-
-
-
-
-
+                onClick={this.handleAdd}
+                variant="primary">Save</Button>
+            </Modal.Footer>
+          </Modal>
+        </Form>
+        {/* Table */}
         <Table striped bordered hover variant="dark">
           <thead>
             <tr>
               <th>Tick</th>
+              <th>ID</th>
               <th>Công việc</th>
               <th>Action</th>
 
@@ -220,10 +233,11 @@ class App extends React.Component {
             {todos.map((item, index) => {
               return (
                 <>
-                  <tr>
+                  <tr key={index}>
                     <td><Form.Group className="mb-3" id="formGridCheckbox">
                       <Form.Check type="checkbox" />
                     </Form.Group></td>
+                    <td>{index + 1}</td>
                     <td>
                       {item}
                     </td>
