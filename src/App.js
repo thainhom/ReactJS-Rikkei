@@ -19,7 +19,7 @@ class App extends React.Component {
       newtodos: "",
       show: false,
       error: "",
-      index: ""
+      index: -1,
     }
   }
   // HÀM SHOW BẢNG Modal
@@ -34,25 +34,58 @@ class App extends React.Component {
   }
 
   // DÙNG async và await đê chờ set sử lý rồi log ra
+  // handleAdd = async () => {
+  //   if (!this.state.newtodos) {
+  //     this.setState({
+  //       error: "vui lòng điền việc cần làm"
+  //     })
+  //   } else {
+  //     //mutate -> tác động trực tiếp đến dữ liệu -> không nên dùng push mà dùng spread như dưới
+  //     const { error, todos, newtodos, } = this.state
+  //     let updateadd = [...todos, newtodos]
+  //     await this.setState({
+  //       todos: updateadd,
+  //       newtodos: "",
+  //       error: ""
+  //     })
+  //     this.handleShow()
+  //     console.log(this.state.error, this.state.todos);
+  //   }
+
+  // }
   handleAdd = async () => {
     if (!this.state.newtodos) {
       this.setState({
-        error: "vui lòng điền việc cần làm"
-      })
+        error: "Vui lòng điền công việc cần làm."
+      });
     } else {
-      //mutate -> tác động trực tiếp đến dữ liệu -> không nên dùng push mà dùng spread như dưới
-      const { error, todos, newtodos } = this.state
-      let updateadd = [...todos, newtodos]
-      await this.setState({
-        todos: updateadd,
-        newtodos: "",
-        error: ""
-      })
-      this.handleShow()
+      const { error, todos, newtodos, index } = this.state;
+      if (index >= 0) {
+        // Đang trong quá trình chỉnh sửa phần tử
+        const updatedTodos = [...todos];
+        updatedTodos[index] = newtodos;
+        await this.setState({
+          todos: updatedTodos,
+          newtodos: "",
+          error: "",
+          show: false,
+          index: -1
+        });
+      } else {
+        // Thêm mới phần tử
+        const updatedTodos = [...todos, newtodos];
+        await this.setState({
+          todos: updatedTodos,
+          newtodos: "",
+          error: "",
+          show: false
+        });
+      }
       console.log(this.state.error, this.state.todos);
     }
-
   }
+
+
 
   handleChange = (event) => {
     // đặt biến đê lấy được giá trị ô input nhập vào
@@ -61,15 +94,10 @@ class App extends React.Component {
     this.setState({ newtodos: newtodos })
   }
   handleEditTodo = (index) => {
-
-
     const { todos } = this.state
-
     const edittodos = todos[index]
-
     this.setState({
-      todos: edittodos,
-      newtodos: "",
+      newtodos: edittodos,
       show: true,
       index: index
     })
@@ -94,7 +122,6 @@ class App extends React.Component {
   handleSubmit = (event) => {
     event.preventDefault()
   }
-
   // handleAddTodo = () => {
 
   //   const { todos, newTodos } = this.state;
@@ -156,8 +183,18 @@ class App extends React.Component {
   //       </tr>
   //     ))
   //   }
+
+
+
+
+
+
+
+
+
   render() {
-    const { show, error, newtodos, todos } = this.state
+    const { error, newtodos, todos } = this.state
+
     return (
       <div>
 
@@ -197,42 +234,43 @@ class App extends React.Component {
 
 
 
-        <Form onSubmit={this.handleSubmit} >
-          <Button variant="outline-info" onClick={() => { this.handleShow() }}>
-            Add
-          </Button>
-          <Modal
-            show={this.state.show}
-            onHide={this.handleShow}
-            backdrop="static"
-            keyboard={false}
-          >
-            {/* modal , handleAdd */}
 
-            <Modal.Header closeButton>
-              <Modal.Title>Thêm công việc cần làm</Modal.Title>
-            </Modal.Header>
+        <Button variant="outline-info" onClick={() => { this.handleShow() }}>
+          Add
+        </Button>
+        <Modal
+          show={this.state.show}
+          onHide={this.handleShow}
+          backdrop="static"
+          keyboard={false}
+        >
+          {/* modal , handleAdd */}
+
+          <Modal.Header closeButton>
+            <Modal.Title>Thêm công việc cần làm</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
             <Modal.Body>
-              <Modal.Body>
-                {/* <Form.Control type="text" value={this.state.newTodo} onChange={this.handleChange} /> */}
-              </Modal.Body>
-              <Form.Control
-                onChange={this.handleChange}
-                value={newtodos}
-                type="text" />
-              {error && <p>{error}</p>}
+              {/* <Form.Control type="text" value={this.state.newTodo} onChange={this.handleChange} /> */}
             </Modal.Body>
-            <Modal.Footer>
-              <Button variant="secondary" onClick={this.handleShow}>
-                Close
-              </Button>
-              <Button
+            <Form.Control
+              onChange={this.handleChange}
+              value={this.state.newtodos}
+              type="text"
+            />
+            {error && <p>{error}</p>}
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={this.handleShow}>
+              Close
+            </Button>
+            <Button
 
-                onClick={this.handleAdd}
-                variant="primary">Save</Button>
-            </Modal.Footer>
-          </Modal>
-        </Form>
+              onClick={this.handleAdd}
+              variant="primary">Save</Button>
+          </Modal.Footer>
+        </Modal>
+
         {/* Table */}
         <Table striped bordered hover variant="dark">
           <thead>
@@ -262,6 +300,7 @@ class App extends React.Component {
                     </td>
 
                     <td> <Button
+
                       onClick={() => this.handleEditTodo(index)}
                       variant="warning">edit</Button>{' '}
                       <Button
