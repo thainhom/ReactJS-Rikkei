@@ -19,7 +19,7 @@ class App extends React.Component {
       newtodos: "",
       show: false,
       error: "",
-      index: 0
+      index: ""
     }
   }
   // HÀM SHOW BẢNG Modal
@@ -74,6 +74,25 @@ class App extends React.Component {
       index: index
     })
 
+  }
+  // 
+  handleDeleteTodo = (index) => {
+    const { todos } = this.state
+    const updatetodos = [...todos]
+    // dung splice thực hiện đê xóa 1 phần tử trong mãng đả khởi tạo ở trên 
+
+    updatetodos.splice(index, 1)// index chỉ mục phần tử muốn xóa tròng mãng , 1 là số chỉ định số lương muốn xóa
+    this.setState(
+      {
+        todos: updatetodos
+
+      }
+    )
+  }
+
+
+  handleSubmit = (event) => {
+    event.preventDefault()
   }
 
   // handleAddTodo = () => {
@@ -178,7 +197,7 @@ class App extends React.Component {
 
 
 
-        <Form >
+        <Form onSubmit={this.handleSubmit} >
           <Button variant="outline-info" onClick={() => { this.handleShow() }}>
             Add
           </Button>
@@ -246,7 +265,7 @@ class App extends React.Component {
                       onClick={() => this.handleEditTodo(index)}
                       variant="warning">edit</Button>{' '}
                       <Button
-                        // onClick={() => this.handleDeleteTodo(index)}
+                        onClick={() => this.handleDeleteTodo(index)}
                         variant="danger">delete</Button>{' '}</td>
                   </tr>
                 </>
