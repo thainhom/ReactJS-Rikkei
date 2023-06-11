@@ -9,6 +9,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { async } from "q";
+
 // import { error } from "console";
 class App extends React.Component {
 
@@ -19,7 +20,7 @@ class App extends React.Component {
       newtodos: "",
       show: false,
       error: "",
-      index: -1,
+      index: -1,// có nghĩa là không có phần tử nào chỉnh sửa trong mảng todos
     }
   }
   // HÀM SHOW BẢNG Modal
@@ -27,44 +28,30 @@ class App extends React.Component {
     this.setState({
       // NGỊCH ĐẢO VS BIẾN FALSE Ở TRÊN ĐÊ SHOW RA BẢNG
       show: !this.state.show,
-      // KHI BẤM SHOW SE SET LẠI ERROR BÁO LỖI 
+      // KHI BẤM SHOW SE SET LẠI ERROR KO BỊ DÍNH HIỆN THỊ ERROR
       error: ""
     });
 
   }
 
-  // DÙNG async và await đê chờ set sử lý rồi log ra
-  // handleAdd = async () => {
-  //   if (!this.state.newtodos) {
-  //     this.setState({
-  //       error: "vui lòng điền việc cần làm"
-  //     })
-  //   } else {
-  //     //mutate -> tác động trực tiếp đến dữ liệu -> không nên dùng push mà dùng spread như dưới
-  //     const { error, todos, newtodos, } = this.state
-  //     let updateadd = [...todos, newtodos]
-  //     await this.setState({
-  //       todos: updateadd,
-  //       newtodos: "",
-  //       error: ""
-  //     })
-  //     this.handleShow()
-  //     console.log(this.state.error, this.state.todos);
-  //   }
-
-  // }
+  // DÙNG async  await đê chờ set sử lý rồi log ra
+  // ADD
   handleAdd = async () => {
+    // NẾU TRỐNG 
     if (!this.state.newtodos) {
       this.setState({
         error: "Vui lòng điền công việc cần làm."
       });
     } else {
-      const { error, todos, newtodos, index } = this.state;
+
+      const { todos, newtodos, index } = this.state;
       if (index >= 0) {
-        // Đang trong quá trình chỉnh sửa phần tử
+
+        // ĐANG TRONG QUÁ TRÌNH CHỈNH SỬA PHẦN TỬ ĐÓ (cu thể la làm tk newtodos)
+        // CHO 1 BIẾN ĐÊ LẤY ĐƯỢC GIÁ TRỊ BAN ĐẦU ĐÊ CHỈNH SỬA
         const updatedTodos = [...todos];
         updatedTodos[index] = newtodos;
-        await this.setState({
+        await this.setState({ // SET LẠI TODOS CÒN CHO MỌI THỨ QUAY VỀ BAN ĐẦU
           todos: updatedTodos,
           newtodos: "",
           error: "",
@@ -72,7 +59,7 @@ class App extends React.Component {
           index: -1
         });
       } else {
-        // Thêm mới phần tử
+        // Thêm mới phần tử cho todos
         const updatedTodos = [...todos, newtodos];
         await this.setState({
           todos: updatedTodos,
@@ -93,13 +80,15 @@ class App extends React.Component {
     // gan lại cho setstate đê nhận được item mới nhất
     this.setState({ newtodos: newtodos })
   }
+  // đê thực hiện việc chỉnh sửa và xóa cần phải trỏ tới vị trí của phần tử đó đê thao tác
   handleEditTodo = (index) => {
+
     const { todos } = this.state
     const edittodos = todos[index]
     this.setState({
       newtodos: edittodos,
       show: true,
-      index: index
+      index: index,
     })
 
   }
@@ -109,7 +98,9 @@ class App extends React.Component {
     const updatetodos = [...todos]
     // dung splice thực hiện đê xóa 1 phần tử trong mãng đả khởi tạo ở trên 
 
+
     updatetodos.splice(index, 1)// index chỉ mục phần tử muốn xóa tròng mãng , 1 là số chỉ định số lương muốn xóa
+    alert("bạn có chắc muốn xóa công việc này")
     this.setState(
       {
         todos: updatetodos
@@ -117,81 +108,18 @@ class App extends React.Component {
       }
     )
   }
+  // Down là sự kiện khi nhấn 1 phím xún
+  handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault()
+      this.handleAdd()
 
-
+    }
+  }
+  // xử lý submit ko cho trang loading lại
   handleSubmit = (event) => {
     event.preventDefault()
   }
-  // handleAddTodo = () => {
-
-  //   const { todos, newTodos } = this.state;
-  //   if (newTodos.trim() !== '') {
-  //     const updatedTodos = [...todos, newTodos];
-  //     this.setState({
-  //       todos: updatedTodos,
-  //       newTodos: ''
-  //     });
-  //     this.handleShow(); // Đóng Modal sau khi thêm công việc
-  //   }
-  // };
-  // handleEditTodo = (index) => {
-  //   const { todos } = this.state;
-  //   const editedTodo = todos[index];
-  //   this.setState({
-  //     newTodo: editedTodo,
-  //     editingIndex: index,
-  //     show: true
-  //   });
-  //   handleDeleteTodo = (index) => {
-  //     const { todos } = this.state;
-  //     const updatedTodos = [...todos];
-  //     updatedTodos.splice(index, 1);
-  //     this.setState({ todos: updatedTodos });
-  //   };
-  // };
-  // handleUpdateTodo = () => {
-  //   const { todos, newTodo, editingIndex } = this.state;
-  //   if (newTodo.trim() !== '') {
-  //     const updatedTodos = [...todos];
-  //     updatedTodos[editingIndex] = newTodo;
-  //     this.setState({
-  //       todos: updatedTodos,
-  //       newTodo: '',
-  //       editingIndex: -1
-  //     });
-  //     this.handleShow(); // Đóng Modal sau khi cập nhật công việc
-  //   }
-  //   {
-  //     todos.map((todo, index) => (
-  //       <tr key={index}>
-  //         <td>
-  //           <Form.Group className="mb-3" id="formGridCheckbox">
-  //             <Form.Check type="checkbox" />
-  //           </Form.Group>
-  //         </td>
-  //         <td>{index + 1}</td>
-  //         <td>{todo}</td>
-  //         <td>
-  //           <Button variant="warning" onClick={() => this.handleEditTodo(index)}>
-  //             edit
-  //           </Button>
-  //           <Button variant="danger" onClick={() => this.handleDeleteTodo(index)}>
-  //             delete
-  //           </Button>
-  //         </td>
-
-  //       </tr>
-  //     ))
-  //   }
-
-
-
-
-
-
-
-
-
   render() {
     const { error, newtodos, todos } = this.state
 
@@ -234,43 +162,47 @@ class App extends React.Component {
 
 
 
-
+        <h1 >List To Do</h1>
         <Button variant="outline-info" onClick={() => { this.handleShow() }}>
           Add
         </Button>
-        <Modal
-          show={this.state.show}
-          onHide={this.handleShow}
-          backdrop="static"
-          keyboard={false}
-        >
-          {/* modal , handleAdd */}
+        <Form onSubmit={this.handleSubmit}>
+          <Modal
+            show={this.state.show}
+            onHide={this.handleShow}
+            backdrop="static"
+            keyboard={false}
+          >
+            {/* modal , handleAdd */}
 
-          <Modal.Header closeButton>
-            <Modal.Title>Thêm công việc cần làm</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
+            <Modal.Header closeButton>
+              <Modal.Title>Thêm công việc cần làm</Modal.Title>
+            </Modal.Header>
             <Modal.Body>
-              {/* <Form.Control type="text" value={this.state.newTodo} onChange={this.handleChange} /> */}
+              <Modal.Body>
+                {/* <Form.Control type="text" value={this.state.newTodo} onChange={this.handleChange} /> */}
+              </Modal.Body>
+              <Form.Control
+
+                onChange={this.handleChange}
+                onKeyDown={this.handleKeyDown}/**
+                 */ // Thêm sự kiện onKeyDown khi người dùng nhấn phím Enter
+                value={this.state.newtodos}
+                type="text"
+              />
+              {error && <p>{error}</p>}
             </Modal.Body>
-            <Form.Control
-              onChange={this.handleChange}
-              value={this.state.newtodos}
-              type="text"
-            />
-            {error && <p>{error}</p>}
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={this.handleShow}>
-              Close
-            </Button>
-            <Button
+            <Modal.Footer>
+              <Button variant="secondary" onClick={this.handleShow}>
+                Close
+              </Button>
+              <Button
 
-              onClick={this.handleAdd}
-              variant="primary">Save</Button>
-          </Modal.Footer>
-        </Modal>
-
+                onClick={this.handleAdd}
+                variant="primary">Save</Button>
+            </Modal.Footer>
+          </Modal>
+        </Form>
         {/* Table */}
         <Table striped bordered hover variant="dark">
           <thead>
