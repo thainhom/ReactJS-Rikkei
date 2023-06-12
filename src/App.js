@@ -268,20 +268,6 @@ class App extends React.Component {
           </tbody>
         </Table>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
       </div >
     );
   }
