@@ -23,102 +23,194 @@ class App extends React.Component {
       index: -1,// có nghĩa là không có phần tử nào chỉnh sửa trong mảng todos
     }
   }
-  // HÀM SHOW BẢNG Modal
+  // // HÀM SHOW BẢNG Modal
+  // handleShow = () => {
+  //   this.setState({
+  //     // NGỊCH ĐẢO VS BIẾN FALSE Ở TRÊN ĐÊ SHOW RA BẢNG
+  //     show: !this.state.show,
+  //     // KHI BẤM SHOW SE SET LẠI ERROR KO BỊ DÍNH HIỆN THỊ ERROR
+  //     error: ""
+  //   });
+
+  // }
+
+  // // DÙNG async  await đê chờ set sử lý rồi log ra
+  // // ADD
+  // handleAdd = async () => {
+  //   // NẾU TRỐNG 
+  //   if (!this.state.newtodos) {
+  //     this.setState({
+  //       error: "Vui lòng điền công việc cần làm."
+  //     });
+  //   } else {
+
+  //     const { todos, newtodos, index } = this.state;
+  //     if (index >= 0) {
+
+  //       // ĐANG TRONG QUÁ TRÌNH CHỈNH SỬA PHẦN TỬ ĐÓ (cu thể la làm tk newtodos)
+  //       // CHO 1 BIẾN ĐÊ LẤY ĐƯỢC GIÁ TRỊ BAN ĐẦU ĐÊ CHỈNH SỬA
+  //       const updatedTodos = [...todos];
+  //       updatedTodos[index] = newtodos;
+  //       await this.setState({ // SET LẠI TODOS CÒN CHO MỌI THỨ QUAY VỀ BAN ĐẦU
+  //         todos: updatedTodos,
+  //         newtodos: "",
+  //         error: "",
+  //         show: false,
+  //         index: -1
+  //       });
+  //     } else {
+  //       // Thêm mới phần tử cho todos
+  //       const updatedTodos = [...todos, newtodos];
+  //       await this.setState({
+  //         todos: updatedTodos,
+  //         newtodos: "",
+  //         error: "",
+  //         show: false
+  //       });
+  //     }
+  //     console.log(this.state.error, this.state.todos);
+  //   }
+  // }
+
+
+
+  // handleChange = (event) => {
+  //   // đặt biến đê lấy được giá trị ô input nhập vào
+  //   const newtodos = event.target.value
+  //   // gan lại cho setstate đê nhận được item mới nhất
+  //   this.setState({ newtodos: newtodos })
+  // }
+  // // đê thực hiện việc chỉnh sửa và xóa cần phải trỏ tới vị trí của phần tử đó đê thao tác
+  // handleEditTodo = (index) => {
+
+  //   const { todos } = this.state
+  //   const edittodos = todos[index]
+  //   this.setState({
+  //     newtodos: edittodos,
+  //     show: true,
+  //     index: index,
+  //   })
+
+  // }
+  // // 
+  // handleDeleteTodo = (index) => {
+  //   const { todos } = this.state
+  //   const updatetodos = [...todos]
+  //   // dung splice thực hiện đê xóa 1 phần tử trong mãng đả khởi tạo ở trên 
+
+
+  //   updatetodos.splice(index, 1)// index chỉ mục phần tử muốn xóa tròng mãng , 1 là số chỉ định số lương muốn xóa
+  //   alert("bạn có chắc muốn xóa công việc này")
+  //   this.setState(
+  //     {
+  //       todos: updatetodos
+
+  //     }
+  //   )
+  // }
+  // // Down là sự kiện khi nhấn 1 phím xún
+  // handleKeyDown = (event) => {
+  //   if (event.key === "Enter") {
+  //     event.preventDefault()
+  //     this.handleAdd()
+
+  //   }
+  // }
+  // // xử lý submit ko cho trang loading lại
+  // handleSubmit = (event) => {
+  //   event.preventDefault()
+  // }
+
   handleShow = () => {
     this.setState({
-      // NGỊCH ĐẢO VS BIẾN FALSE Ở TRÊN ĐÊ SHOW RA BẢNG
-      show: !this.state.show,
-      // KHI BẤM SHOW SE SET LẠI ERROR KO BỊ DÍNH HIỆN THỊ ERROR
+      show: true,
       error: ""
-    });
-
+    })
   }
-
-  // DÙNG async  await đê chờ set sử lý rồi log ra
-  // ADD
   handleAdd = async () => {
-    // NẾU TRỐNG 
     if (!this.state.newtodos) {
       this.setState({
-        error: "Vui lòng điền công việc cần làm."
-      });
+        error: "Vui lòng nhập công việc"
+      })
     } else {
-
-      const { todos, newtodos, index } = this.state;
+      // bắt đầu chỉnh sửa
+      const { newtodos, todos, index } = this.state
       if (index >= 0) {
-
-        // ĐANG TRONG QUÁ TRÌNH CHỈNH SỬA PHẦN TỬ ĐÓ (cu thể la làm tk newtodos)
-        // CHO 1 BIẾN ĐÊ LẤY ĐƯỢC GIÁ TRỊ BAN ĐẦU ĐÊ CHỈNH SỬA
-        const updatedTodos = [...todos];
-        updatedTodos[index] = newtodos;
-        await this.setState({ // SET LẠI TODOS CÒN CHO MỌI THỨ QUAY VỀ BAN ĐẦU
-          todos: updatedTodos,
+        const edittodos = [...todos]
+        edittodos[index] = newtodos
+        this.setState({
+          todos: edittodos,
           newtodos: "",
-          error: "",
+          index: -1,
           show: false,
-          index: -1
-        });
+          error: "",
+        })
       } else {
-        // Thêm mới phần tử cho todos
-        const updatedTodos = [...todos, newtodos];
+        // tiến hành tạo mới
+
+        const updatedTodos = [...todos, newtodos]
         await this.setState({
           todos: updatedTodos,
           newtodos: "",
+          index: -1,
+          show: false,
           error: "",
-          show: false
-        });
+        })
       }
-      console.log(this.state.error, this.state.todos);
+
     }
   }
+
 
 
 
   handleChange = (event) => {
-    // đặt biến đê lấy được giá trị ô input nhập vào
-    const newtodos = event.target.value
-    // gan lại cho setstate đê nhận được item mới nhất
-    this.setState({ newtodos: newtodos })
-  }
-  // đê thực hiện việc chỉnh sửa và xóa cần phải trỏ tới vị trí của phần tử đó đê thao tác
-  handleEditTodo = (index) => {
-
-    const { todos } = this.state
-    const edittodos = todos[index]
+    const newTodo = event.target.value
     this.setState({
-      newtodos: edittodos,
-      show: true,
-      index: index,
-    })
 
-  }
-  // 
-  handleDeleteTodo = (index) => {
-    const { todos } = this.state
-    const updatetodos = [...todos]
-    // dung splice thực hiện đê xóa 1 phần tử trong mãng đả khởi tạo ở trên 
+      newtodos: newTodo
+    }
 
 
-    updatetodos.splice(index, 1)// index chỉ mục phần tử muốn xóa tròng mãng , 1 là số chỉ định số lương muốn xóa
-    alert("bạn có chắc muốn xóa công việc này")
-    this.setState(
-      {
-        todos: updatetodos
-
-      }
     )
   }
-  // Down là sự kiện khi nhấn 1 phím xún
+
+
+
+  // sự kiện enter
   handleKeyDown = (event) => {
     if (event.key === "Enter") {
       event.preventDefault()
       this.handleAdd()
-
     }
   }
-  // xử lý submit ko cho trang loading lại
-  handleSubmit = (event) => {
-    event.preventDefault()
+  handleSubmit = (e) => {
+    e.preventDefault()
+  }
+  handleEditTodo = (index) => {
+    const { todos } = this.state
+    const edittodos = todos[index]
+    this.setState(
+      {
+
+        newtodos: edittodos,
+        index: index,
+        show: true,
+      }
+    )
+  }
+
+  handleDeleteTodo = (index) => {
+    const { todos } = this.state
+    const deletetodos = [...todos]
+
+    deletetodos.splice(index, 1)
+    this.setState(
+      {
+        todos: deletetodos,
+
+      }
+    )
   }
   render() {
     const { error, newtodos, todos } = this.state
