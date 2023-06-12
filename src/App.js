@@ -9,6 +9,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { async } from "q";
+import { wait } from "@testing-library/user-event/dist/utils";
 
 // import { error } from "console";
 class App extends React.Component {
@@ -17,10 +18,12 @@ class App extends React.Component {
     super();
     this.state = {
       todos: [],
+      totoDisplay: [],
       newtodos: "",
       show: false,
       error: "",
       index: -1,// có nghĩa là không có phần tử nào chỉnh sửa trong mảng todos
+      filter: "",
     }
   }
   // HÀM SHOW BẢNG Modal
@@ -68,6 +71,7 @@ class App extends React.Component {
           show: false
         });
       }
+      this.handleSearch({ target: { value: this.state.filter } })
       console.log(this.state.error, this.state.todos);
     }
   }
@@ -86,6 +90,7 @@ class App extends React.Component {
     const { todos } = this.state
     const edittodos = todos[index]
     this.setState({
+
       newtodos: edittodos,
       show: true,
       index: index,
@@ -93,20 +98,24 @@ class App extends React.Component {
 
   }
   // 
-  handleDeleteTodo = (index) => {
-    const { todos } = this.state
-    const updatetodos = [...todos]
-    // dung splice thực hiện đê xóa 1 phần tử trong mãng đả khởi tạo ở trên 
+  handleDeleteTodo = async (index) => {
+    if (window.confirm('Bạn có chắc muốn xóa không')) {
+      const { todos } = this.state
+      const updatetodos = [...todos]
+      // dung splice thực hiện đê xóa 1 phần tử trong mãng đả khởi tạo ở trên 
 
 
-    updatetodos.splice(index, 1)// index chỉ mục phần tử muốn xóa tròng mãng , 1 là số chỉ định số lương muốn xóa
-    alert("bạn có chắc muốn xóa công việc này")
-    this.setState(
-      {
-        todos: updatetodos
+      updatetodos.splice(index, 1)// index chỉ mục phần tử muốn xóa tròng mãng , 1 là số chỉ định số lương muốn xóa
 
-      }
-    )
+      await this.setState(
+        {
+
+          todos: updatetodos,
+          totoDisplay: updatetodos,
+        }
+      )
+    }
+
   }
   // Down là sự kiện khi nhấn 1 phím xún
   handleKeyDown = (event) => {
@@ -120,8 +129,20 @@ class App extends React.Component {
   handleSubmit = (event) => {
     event.preventDefault()
   }
+
+  handleSearch = async (event) => {
+    await this.setState({
+      filter: event.target.value
+    })
+    const fiterdata = this.state.todos.filter((item) => item.toLowerCase().indexOf(this.state.filter.toLowerCase()) !== -1)
+    await this.setState({
+      totoDisplay: fiterdata
+    })
+  }
+
+
   render() {
-    const { error, newtodos, todos } = this.state
+    const { search, error, newtodos, todos, totoDisplay } = this.state
 
     return (
       <div>
@@ -145,6 +166,7 @@ class App extends React.Component {
               </Nav>
               <Form className="d-flex">
                 <Form.Control
+                  onChange={this.handleSearch}
                   type="search"
                   placeholder="Search"
                   className="me-2"
@@ -207,7 +229,7 @@ class App extends React.Component {
         <Table striped bordered hover variant="dark">
           <thead>
             <tr>
-              <th>Tick</th>
+              {/* <th>Tick</th> */}
               <th>ID</th>
               <th>Công việc</th>
               <th>Action</th>
@@ -219,13 +241,13 @@ class App extends React.Component {
                 <Form.Check type="checkbox" label="1" />
               </Form.Group> */}
 
-            {todos.map((item, index) => {
+            {totoDisplay.map((item, index) => {
               return (
                 <>
                   <tr key={index}>
-                    <td><Form.Group className="mb-3" id="formGridCheckbox">
+                    {/* <td><Form.Group className="mb-3" id="formGridCheckbox">
                       <Form.Check type="checkbox" />
-                    </Form.Group></td>
+                    </Form.Group></td> */}
                     <td>{index + 1}</td>
                     <td>
                       {item}
@@ -262,7 +284,7 @@ class App extends React.Component {
 
       </div >
     );
-  };
+  }
 }
 
 export default App;
