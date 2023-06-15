@@ -5,7 +5,7 @@ class AboutRikeiS extends React.Component {
         return (
             <>
                 <Outlet />
-                <div>AboutRikeiS</div>
+                <div>Contact</div>
             </>
 
         )
