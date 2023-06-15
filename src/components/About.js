@@ -1,9 +1,12 @@
 import React from "react";
-
+import { Outlet } from "react-router-dom";
 class About extends React.Component {
     render() {
         return (
-            <div>About</div>
+            <>
+                <Outlet />
+                <div>About</div>
+            </>
         )
     }
 }
