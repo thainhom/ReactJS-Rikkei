@@ -1,3 +1,8 @@
+/** tk này khai báo chờ xử lý bên phần counts
+ * 
+ */
+
+
 export const upCount = (value) => {
     return {
         type: "UP_COUNT",

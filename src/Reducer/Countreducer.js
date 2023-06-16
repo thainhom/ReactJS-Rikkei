@@ -1,3 +1,8 @@
+/** Th bên này là khai báo state hoặc cái function đê mỗi lần các component thực thi truyên lên store 
+ * để khai báo lại state 
+ * 
+ */
+
 const initState = {
     count: 0,
     // todos:[  ]
