@@ -4,10 +4,10 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from "react-redux"
-import countStore from "./Store/Countstore"
+import todoStore from "./todoStore/todoStore"
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <Provider store={countStore}>
+  <Provider store={todoStore}>
     <App />
   </Provider>
 
