@@ -7,9 +7,12 @@ import { Provider } from "react-redux"
 import todoStore from "./todoStore/todoStore"
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <Provider store={todoStore}>
-    <App />
-  </Provider>
+  <React.StrictMode>
+    <Provider store={todoStore}>
+      <App />
+    </Provider>
+  </React.StrictMode>
+
 
 
 );

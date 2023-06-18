@@ -28,6 +28,8 @@ const todoReducer = (state = initialState, action) => {
                         title: action.payload.title,
                         completed: action.payload.completed
                     }
+
+
                 } else {
                     return todo
                 }

@@ -1,11 +1,11 @@
 import React from "react";
-import Counts from "./components/todos";
+import Todos from "./components/todos";
 
 class App extends React.Component {
   render() {
     return (
       <div>
-        <Counts />
+        <Todos />
       </div>
     );
   }
