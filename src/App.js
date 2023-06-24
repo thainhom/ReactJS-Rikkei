@@ -1,18 +1,15 @@
-import React from "react";
-import Shopping from "./components/shopping";
-import "bootstrap/dist/css/bootstrap.min.css";
-import { Route, Routes } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import Cart from "./pages/Cart";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-import CarShopping from "./components/carShopping"
-class App extends React.Component {
-  render() {
-    return (
-      <div>
-        <Shopping />
-        <CarShopping />
-      </div>
-    );
-  }
+function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/cart" element={<Cart />} />
+    </Routes>
+  );
 }
 
 export default App;
