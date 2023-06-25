@@ -2,14 +2,14 @@ const initState = {
     student: [
         {
             id: 1,
-            masv: "abc001",
+            msv: "abc001",
             name: "Nguyen Van A",
             age: 19,
             sex: "nữ"
         },
         {
             id: 2,
-            masv: "abc001",
+            msv: "abc002",
             name: "Nguyen Van B",
             age: 19,
             sex: "nam"
@@ -17,7 +17,7 @@ const initState = {
         },
         {
             id: 3,
-            masv: "abc001",
+            msv: "abc003",
             name: "Nguyen Van C",
             age: 19,
             sex: "nam"
@@ -27,7 +27,25 @@ const initState = {
     ]
 }
 const studentReducer = (state = initState, action) => {
+    switch (action.type) {
+        case "DELETE_STUDENT":
+            const deleteStudent = state.student.map(student => student.id !== action.payload.id)
+
+            return {
+                ...state,
+                student: deleteStudent
+            }
+
+
+
+
+
+        default:
+            break;
+    }
+
     return state
+
 }
 
 export default studentReducer

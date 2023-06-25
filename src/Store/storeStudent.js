@@ -1,6 +1,6 @@
 import { createStore, combineReducers } from "redux";
 import studentReducer from "../reducer/studentReducer";
-import formReducer from "../reducer/formReducer";
+import formReducer from "../reducer/NavbarReducer";
 
 const reducers = combineReducers({
     studentReducer,
