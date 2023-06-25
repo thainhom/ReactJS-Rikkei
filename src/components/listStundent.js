@@ -7,7 +7,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Table from 'react-bootstrap/Table';
 function listStudent() {
-    const students = useSelector(state => { state.studentReducer.student });
+    const students = useSelector(state => { state.student });
     const dispatch = useDispatch()
 
 
