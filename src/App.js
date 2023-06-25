@@ -1,12 +1,11 @@
-
+import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import StudentReducer from './reducer/studentReducer';
-import FormReducer from './reducer/formReducer';
+import ListStudent from './components/useListStundent';
+
 function App() {
   return (
     <>
-      <StudentReducer />
-      <FormReducer />
+      <ListStudent />
     </>
   );
 }
