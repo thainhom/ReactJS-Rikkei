@@ -16,7 +16,7 @@ export const deleteStudent = (id) => {
 }
 
 
-export const changeQuantityStudent = (id, quantity) => {
+export const changeQuantityStudent = (id, ) => {
     return {
         type: 'CHANGE_QUANTITY',
         payload: {

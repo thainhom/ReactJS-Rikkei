@@ -25,3 +25,8 @@ const initState = {
 
     ]
 }
+const listStudent = (state = initState, action) => {
+    return state
+}
+
+export default listStudent
