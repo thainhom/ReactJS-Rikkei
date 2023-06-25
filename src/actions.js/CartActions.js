@@ -1,4 +1,4 @@
-export const addToCart = (product, quantity) => {
+export const addStudent = (product, quantity) => {
     return {
         type: 'ADD_TO_CART',
         payload: {
@@ -8,7 +8,7 @@ export const addToCart = (product, quantity) => {
     }
 }
 
-export const deleteFromCart = (id) => {
+export const deleteStudent = (id) => {
     return {
         type: 'DELETE_FROM_CART',
         payload: id
@@ -16,7 +16,7 @@ export const deleteFromCart = (id) => {
 }
 
 
-export const changeQuantity = (id, quantity) => {
+export const changeQuantityStudent = (id, quantity) => {
     return {
         type: 'CHANGE_QUANTITY',
         payload: {
