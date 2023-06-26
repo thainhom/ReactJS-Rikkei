@@ -1,7 +1,8 @@
-export const addStudent = (id) => {
+export const addStudent = (data) => {
+    console.log(data);
     return {
         type: 'ADD_TO_CART',
-        payload: id,
+        payload: data
 
 
     }
@@ -10,17 +11,14 @@ export const addStudent = (id) => {
 export const deleteStudent = (id) => {
     return {
         type: 'DELETE_STUDENT',
-        payload: {id}
+        payload: { id }
     }
 }
 
 
-export const changeQuantityStudent = (id,) => {
+export const updateStudent = (id) => {
     return {
-        type: 'CHANGE_QUANTITY',
-        payload: {
-            id: id,
-
-        }
+        type: 'UPDATE_STUDENT',
+        payload: id
     }
 }

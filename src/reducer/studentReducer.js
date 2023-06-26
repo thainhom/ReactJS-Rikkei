@@ -35,9 +35,18 @@ const studentReducer = (state = initState, action) => {
                 ...state,
                 student: deleteStudent
             }
+        case "ADD_TO_CART":
+            const newList = [...state.student, action.payload]
+            return {
+                ...state,
+                student: newList
+            }
+        case "UPDATE_STUDENT":
+            const editstudent = state.student.map(student => {
+                if (student.id === action.payload){
 
-
-
+                }
+    })
 
 
         default:

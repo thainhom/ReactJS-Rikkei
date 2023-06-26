@@ -1,30 +1,83 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { deleteStudent, addStudent, changeQuantityStudent } from '../actions.js/studentAciton'
+import { deleteStudent, addStudent, updateStudent } from '../actions.js/studentAciton'
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Table from 'react-bootstrap/Table';
-
+import NavDropdown from 'react-bootstrap/NavDropdown';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import { async } from 'q';
+
 
 
 
 function ListStudent() {
     const students = useSelector(state => state.studentReducer.student);
+    const [msv, setMsv] = useState()
+    const [name, setName] = useState("")
+    const [age, setAge] = useState();
+    const [sex, setSex] = useState();
 
     const [show, setShow] = useState(false);
+
     const dispatch = useDispatch()
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-    const handleSave = () => setShow(false);
+    const handleClose = () => setShow(!show);
+    const handleShow = () => setShow(!show);
+
+
+
+    const handleSave = () => {
+        dispatch(addStudent({
+            id: students.length ? students[students.length - 1].id + 1 : 1,
+            msv: msv,
+            name: name,
+            age: age,
+            sex: sex
+        }))
+
+
+        setShow(!show);
+    };
     const handleDelete = (id) => {
         dispatch(deleteStudent(id))
 
     }
+    const handleEdit = (id) => {
+        setMsv(msv)
+        setName(name)
+        setAge(age)
+        setSex(sex)
+        setShow(!show)
 
+        dispatch(updateStudent(id))
+    }
+
+
+
+
+    const handleChange1 = (event) => {
+        const value = event.target.value
+        setMsv(value)
+
+    }
+    const handleChange2 = (event) => {
+        const value = event.target.value
+        setName(value)
+
+    }
+    const handleChange3 = (event) => {
+        const value = event.target.value
+        setAge(value)
+
+    }
+    const handleChange4 = (event) => {
+        const value = event.target.value
+        setSex(value)
+
+    }
 
 
 
@@ -52,19 +105,25 @@ function ListStudent() {
                         keyboard={false}
                     >
                         <Modal.Header closeButton>
-                            <Modal.Title>Thêm sinh viên</Modal.Title>
+                            <Modal.Title >Thêm sinh viên</Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
                             <Form.Label>Id</Form.Label>
                             <Form.Control disabled type="text" />
                             <Form.Label>Mã sinh viên</Form.Label>
-                            <Form.Control type="text" placeholder="Nhập Mã sinh viên" />
+                            <Form.Control type="text" placeholder="Nhập Mã sinh viên" onChange={(e) => handleChange1(e)} />
                             <Form.Label>Tên sinh viên</Form.Label>
-                            <Form.Control type="name" placeholder="Nhập Tên sinh viên" />
+                            <Form.Control type="text" placeholder="Nhập Tên sinh viên" onChange={(e) => handleChange2(e)} />
                             <Form.Label>Tuổi sinh viên </Form.Label>
-                            <Form.Control type="age" placeholder="Nhập Tuổi" />
-                            <Form.Label>Giới tính</Form.Label>
-                            <Form.Control type="sex" placeholder="Nhập Giới tính sinh viên" />
+                            <Form.Control style={{ marginBottom: "10px" }} type="text" placeholder="Nhập Tuổi" onChange={(e) => handleChange3(e)} />
+
+                            <Form.Label>Giới tính </Form.Label>
+                            <select onChange={(e) => handleChange4(e)} style={{ marginLeft: "20px" }}>
+                                <option >Nam</option>
+                                <option>Nữ</option>
+                                <option>Khác</option>
+                            </select>
+
 
 
 
@@ -97,7 +156,7 @@ function ListStudent() {
 
                 </Container>
 
-            </Navbar>
+            </Navbar >
 
 
             <Table striped bordered hover variant="dark">
@@ -113,7 +172,7 @@ function ListStudent() {
                 </thead>
                 <tbody>
                     {students.map((item, index) => {
-                        console.log(students);
+
                         return (
                             <tr key={index}>
                                 <td>{index + 1}</td>
@@ -123,7 +182,7 @@ function ListStudent() {
                                 <td>{item.sex}</td>
                                 <td>
                                     <Button variant="success">Xem</Button>{' '}
-                                    <Button variant="warning">Sữa</Button>{' '}
+                                    <Button variant="warning" onClick={() => handleEdit(item.id)}>Sữa</Button>{' '}
                                     <Button variant="danger" onClick={() => handleDelete(item.id)}>Xóa</Button>{' '}
 
                                 </td>
