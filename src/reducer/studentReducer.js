@@ -29,8 +29,8 @@ const initState = {
 const studentReducer = (state = initState, action) => {
     switch (action.type) {
         case "DELETE_STUDENT":
-            const deleteStudent = state.student.map(student => student.id !== action.payload.id)
-
+            const deleteStudent = state.student.filter(student => student.id !== action.payload.id)
+            // debugger
             return {
                 ...state,
                 student: deleteStudent

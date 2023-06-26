@@ -10,7 +10,7 @@ export const addStudent = (id) => {
 export const deleteStudent = (id) => {
     return {
         type: 'DELETE_STUDENT',
-        payload: id
+        payload: {id}
     }
 }
 
