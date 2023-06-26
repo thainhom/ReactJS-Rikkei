@@ -6,6 +6,8 @@ import Stack from 'react-bootstrap/Stack';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addToCart } from "../../actions/cartActions";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function ProductDetail({ product }) {
     const [quantity, setQuantity] = useState(1)
@@ -21,6 +23,8 @@ function ProductDetail({ product }) {
 
     const handleAdd = () => {
         dispatch(addToCart(product, quantity))
+        toast.info("thành công")
+
     }
 
     return (

@@ -3,7 +3,8 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useSelector, useDispatch } from 'react-redux';
 import { deleteFromCart, changeQuantity } from "../../actions/cartActions";
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function CartList() {
     const cart = useSelector(state => state.cartReducer.cart)
     const total = useSelector(state => state.cartReducer.total)
@@ -19,6 +20,7 @@ function CartList() {
 
     const handleDelete = (id) => {
         dispatch(deleteFromCart(id))
+        toast('Xoa thanh cong')
     }
 
     return (
