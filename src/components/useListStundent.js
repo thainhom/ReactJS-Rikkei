@@ -9,7 +9,7 @@ import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import { async } from 'q';
+
 
 
 
@@ -20,7 +20,7 @@ function ListStudent() {
     const [name, setName] = useState("")
     const [age, setAge] = useState();
     const [sex, setSex] = useState();
-
+    const [error, setError] = useState()
     const [show, setShow] = useState(false);
 
     const dispatch = useDispatch()
@@ -30,15 +30,25 @@ function ListStudent() {
 
 
     const handleSave = () => {
+
+
         dispatch(addStudent({
             id: students.length ? students[students.length - 1].id + 1 : 1,
             msv: msv,
             name: name,
             age: age,
-            sex: sex
+            sex: sex,
+
+
         }))
 
 
+
+
+        setMsv()
+        setName("")
+        setAge()
+        setSex()
         setShow(!show);
     };
     const handleDelete = (id) => {
@@ -46,11 +56,8 @@ function ListStudent() {
 
     }
     const handleEdit = (id) => {
-        setMsv(msv)
-        setName(name)
-        setAge(age)
-        setSex(sex)
-        setShow(!show)
+        setShow(!show);
+        
 
         dispatch(updateStudent(id))
     }
@@ -176,8 +183,8 @@ function ListStudent() {
                         return (
                             <tr key={index}>
                                 <td>{index + 1}</td>
-                                <td>{item.name}</td>
                                 <td>{item.msv}</td>
+                                <td>{item.name}</td>
                                 <td>{item.age}</td>
                                 <td>{item.sex}</td>
                                 <td>
