@@ -35,7 +35,7 @@ const studentReducer = (state = initState, action) => {
                 ...state,
                 student: deleteStudent
             }
-        case "ADD_TO_CART":
+        case "ADD_STUDENT":
 
 
             const newList = [...state.student, action.payload]
@@ -47,10 +47,14 @@ const studentReducer = (state = initState, action) => {
 
             const editstudent = state.student.map(student => {
                 if (student.id === action.payload.id) {
-
+                    student.msv = action.payload.msv
+                    student.name = action.payload.name
+                    student.age = action.payload.age
+                    student.sex = action.payload.sex
 
 
                 }
+                return student
 
             })
             return {

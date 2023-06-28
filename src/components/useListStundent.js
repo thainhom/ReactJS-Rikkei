@@ -4,10 +4,8 @@ import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Table from 'react-bootstrap/Table';
-import NavDropdown from 'react-bootstrap/NavDropdown';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
-import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 
 
@@ -20,27 +18,46 @@ function ListStudent() {
     const [name, setName] = useState("")
     const [age, setAge] = useState();
     const [sex, setSex] = useState();
-    const [error, setError] = useState()
     const [show, setShow] = useState(false);
+    const [editmodal, setEditmodal] = useState(false);
+    //đối tượng đã được update(sau khi chỉnh sửa)=> kiểu dữ liệu phải là object
+    const [editstudent, setEditstudent] = useState({});
 
     const dispatch = useDispatch()
     const handleClose = () => setShow(!show);
-    const handleShow = () => setShow(!show);
+
+    const handleClickAdd = () => {
+        setShow(true);
+        setEditmodal(false)
+    }
 
 
 
     const handleSave = () => {
 
+        // edit sinh viên
+        if (editmodal) {
+            dispatch(updateStudent({
+                id: editstudent.id,
+                msv: editstudent.msv,
+                name: editstudent.name,
+                age: editstudent.age,
+                sex: editstudent.sex
+            }))
+        } else {
+            // thêm sinh viên mới
+            dispatch(addStudent({
+                id: students.length ? students[students.length - 1].id + 1 : 1,
+                msv: msv,
+                name: name,
+                age: age,
+                sex: sex,
 
-        dispatch(addStudent({
-            id: students.length ? students[students.length - 1].id + 1 : 1,
-            msv: msv,
-            name: name,
-            age: age,
-            sex: sex,
+
+            }))
+        }
 
 
-        }))
 
 
 
@@ -49,17 +66,17 @@ function ListStudent() {
         setName("")
         setAge()
         setSex()
-        setShow(!show);
+        setShow(false);
     };
     const handleDelete = (id) => {
         dispatch(deleteStudent(id))
 
     }
-    const handleEdit = (id) => {
-        setShow(!show);
-        
+    const handleEdit = async (student) => {
+        await setShow(true);
+        await setEditmodal(true)
+        await setEditstudent(student)
 
-        dispatch(updateStudent(id))
     }
 
 
@@ -67,22 +84,49 @@ function ListStudent() {
 
     const handleChange1 = (event) => {
         const value = event.target.value
-        setMsv(value)
-
+        if (editmodal) {
+            setEditstudent({
+                ...editstudent,
+                msv: value
+            })
+        } else {
+            setMsv(value)
+        }
     }
     const handleChange2 = (event) => {
         const value = event.target.value
-        setName(value)
+        if (editmodal) {
+            setEditstudent({
+                ...editstudent,
+                name: value
+            })
+        } else {
+            setName(value)
+        }
 
     }
     const handleChange3 = (event) => {
         const value = event.target.value
-        setAge(value)
+        if (editmodal) {
+            setEditstudent({
+                ...editstudent,
+                age: value
+            })
+        } else {
+            setAge(value)
+        }
 
     }
     const handleChange4 = (event) => {
         const value = event.target.value
-        setSex(value)
+        if (editmodal) {
+            setEditstudent({
+                ...editstudent,
+                sex: value
+            })
+        } else {
+            setSex(value)
+        }
 
     }
 
@@ -101,7 +145,7 @@ function ListStudent() {
         <>
             <Navbar expand="lg" className="bg-body-tertiary">
                 <Container fluid>
-                    <Button variant="primary" onClick={handleShow} >
+                    <Button variant="primary" onClick={handleClickAdd} >
                         Thêm sinh viên
                     </Button>
 
@@ -112,17 +156,25 @@ function ListStudent() {
                         keyboard={false}
                     >
                         <Modal.Header closeButton>
-                            <Modal.Title >Thêm sinh viên</Modal.Title>
+                            <Modal.Title >{editmodal ? "Cập nhập sinh viên" : "Thêm sinh viên"}</Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
                             <Form.Label>Id</Form.Label>
                             <Form.Control disabled type="text" />
                             <Form.Label>Mã sinh viên</Form.Label>
-                            <Form.Control type="text" placeholder="Nhập Mã sinh viên" onChange={(e) => handleChange1(e)} />
+                            <Form.Control
+                                value={editmodal ? editstudent.msv : msv}
+                                type="text"
+                                placeholder="Nhập Mã sinh viên"
+                                onChange={(e) => handleChange1(e)} />
                             <Form.Label>Tên sinh viên</Form.Label>
-                            <Form.Control type="text" placeholder="Nhập Tên sinh viên" onChange={(e) => handleChange2(e)} />
+                            <Form.Control
+                                value={editmodal ? editstudent.name : name}
+                                type="text" placeholder="Nhập Tên sinh viên" onChange={(e) => handleChange2(e)} />
                             <Form.Label>Tuổi sinh viên </Form.Label>
-                            <Form.Control style={{ marginBottom: "10px" }} type="text" placeholder="Nhập Tuổi" onChange={(e) => handleChange3(e)} />
+                            <Form.Control
+                                value={editmodal ? editstudent.age : age}
+                                style={{ marginBottom: "10px" }} type="text" placeholder="Nhập Tuổi" onChange={(e) => handleChange3(e)} />
 
                             <Form.Label>Giới tính </Form.Label>
                             <select onChange={(e) => handleChange4(e)} style={{ marginLeft: "20px" }}>
@@ -189,7 +241,7 @@ function ListStudent() {
                                 <td>{item.sex}</td>
                                 <td>
                                     <Button variant="success">Xem</Button>{' '}
-                                    <Button variant="warning" onClick={() => handleEdit(item.id)}>Sữa</Button>{' '}
+                                    <Button variant="warning" onClick={() => handleEdit(item)}>Sữa</Button>{' '}
                                     <Button variant="danger" onClick={() => handleDelete(item.id)}>Xóa</Button>{' '}
 
                                 </td>

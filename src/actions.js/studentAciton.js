@@ -1,7 +1,7 @@
 export const addStudent = (data) => {
     console.log(data);
     return {
-        type: 'ADD_TO_CART',
+        type: 'ADD_STUDENT',
         payload: data
 
 
