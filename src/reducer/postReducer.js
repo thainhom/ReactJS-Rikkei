@@ -2,13 +2,17 @@ import { createReducer } from "@reduxjs/toolkit"
 
 const postReducer = createReducer({ post: [] }, {
     GET_POST: (state, action) => {
-        debugger
         return {
             ...state,
-            post: action.paylod
-
+            post: action.payload
         }
 
+    },
+    CHANG_LANGUAGE: (state, action) => {
+        return {
+            ...state,
+            language: action.payload
+        }
     }
 
 })

@@ -1,3 +1,5 @@
 import { createAction } from "@reduxjs/toolkit";
 const getPostList = createAction("GET_POST")
-export { getPostList }
+const changlanguages = createAction("CHANG_LANGUAGE")
+
+export { getPostList, changlanguages }
