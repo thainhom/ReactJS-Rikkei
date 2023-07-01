@@ -6,6 +6,7 @@ import Badge from 'react-bootstrap/Badge';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProductList from '../product/productList';
+import Modal from '../pages/Modal'
 function Home() {
     const numberOfItems = useSelector(state => state.numberOfItems)
     return (
@@ -17,6 +18,7 @@ function Home() {
                         <a href="/">
                             <Button variant="info">Trang chủ</Button>
                         </a>
+                        <Modal />
                         <Link to="/cart" className="float-end m-2" >
                             <Button variant="warning">Giỏ hàng <Badge>{numberOfItems}</Badge></Button>
                         </Link>
@@ -25,14 +27,14 @@ function Home() {
                     <Form className="d-flex">
                         <Form.Control
                             type="search"
-                            placeholder="Search"
+                            placeholder=".  .  ."
                             className="me-2"
                             aria-label="Search"
                         />
-                        <Button variant="outline-success">Search</Button>
+                        <Button variant="outline-success">Tìm...</Button>
                     </Form>
                 </Container>
-            </Navbar>
+            </Navbar >
             <Container>
                 <h1 className='text-center'>High-End Aromatics</h1>
             </Container>
@@ -77,7 +79,7 @@ function Home() {
             <h1 className='text-center'>Danh sách sản phẩm</h1>
 
             <ProductList />
-        </Container>
+        </Container >
     )
 }
 export default Home
