@@ -79,8 +79,8 @@ const initialState = {
 }
 const productReducer = createReducer(initialState, {
     ADD_PRODUCT: (state, action) => {
-        const newProduct = action.payload;
-        state.product = [...state.product, newProduct];
+        const newProduct = [...state.product, action.payload]
+        state.product = newProduct
 
     },
     DELETE_PRODUCT: (state, action) => {
