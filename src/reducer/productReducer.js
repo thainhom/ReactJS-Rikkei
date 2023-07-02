@@ -82,6 +82,14 @@ const productReducer = createReducer(initialState, {
         const newProduct = action.payload;
         state.product = [...state.product, newProduct];
 
+    },
+    DELETE_PRODUCT: (state, action) => {
+        const deleteProduct = action.payload.id
+        state.product = state.product.filter(product => product.id !== deleteProduct)
+
+
+
+
     }
 
 });
