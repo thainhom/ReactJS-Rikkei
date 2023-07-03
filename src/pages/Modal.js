@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 function Modals() {
     const ModalsaddProduct = useSelector((state) => state.productReducer.product)
-    // console.log(ModalsaddProduct);
+    console.log(111111111111111, ModalsaddProduct);
     const [show, setShow] = useState(false);
     const [value, setValue] = useState()
     const dispatch = useDispatch()

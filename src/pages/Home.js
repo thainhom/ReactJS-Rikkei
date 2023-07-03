@@ -6,19 +6,21 @@ import Badge from 'react-bootstrap/Badge';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProductList from '../product/productList';
-import Modal from '../pages/Modal'
+
+import ProductListShopping from '../component/ProductListShopping'
+
 function Home() {
     const numberOfItems = useSelector(state => state.numberOfItems)
     return (
 
         <Container>
+            <ProductListShopping />
             <Navbar expand="lg" className="bg-body-tertiary" style={{ position: 'sticky', top: 0, zIndex: 1000 }}>
                 <Container fluid >
                     <Container>
                         <a href="/">
                             <Button variant="info">Trang chủ</Button>
                         </a>
-                        <Modal />
                         <Link to="/cart" className="float-end m-2" >
                             <Button variant="warning">Giỏ hàng <Badge>{numberOfItems}</Badge></Button>
                         </Link>

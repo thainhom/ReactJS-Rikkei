@@ -4,6 +4,7 @@ import { deleteProduct } from "../aciton/shoppingCart"
 
 function ProductListShopping() {
     const productList = useSelector((state) => state.productReducer.product);
+    console.log(22222222222, productList);
     const dispatch = useDispatch()
     console.log(productList);
     const handleEdit = () => { }
