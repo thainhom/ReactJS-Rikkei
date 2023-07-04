@@ -8,7 +8,7 @@ function Login() {
         <>
             <div className="login-box">
                 <h2>Login</h2>
-                <form>
+                <form onSubmit={handleSubmit}>
                     <div className="user-box">
                         <input type="text" name="" required="" />
                         <label>Username</label>
