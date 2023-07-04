@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux"
-import { deleteProduct } from "../aciton/shoppingCart"
+import { deleteProduct } from "../../aciton/shoppingCart"
 
 
 function ProductListShopping() {

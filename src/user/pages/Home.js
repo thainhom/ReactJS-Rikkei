@@ -5,9 +5,9 @@ import Navbar from 'react-bootstrap/Navbar';
 import Badge from 'react-bootstrap/Badge';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import ProductList from '../product/productList';
+import ProductList from '../../product/productList';
 
-import ProductListShopping from '../component/ProductListShopping'
+import ProductListShopping from '../../admin/component/ProductListShopping'
 
 function Home() {
     const numberOfItems = useSelector(state => state.numberOfItems)
