@@ -24,7 +24,7 @@ const ProductDetail = ({ product }) => {
 
 
     }
-   
+
     return (
 
         <Card>
@@ -36,8 +36,6 @@ const ProductDetail = ({ product }) => {
                 <Stack direction="horizontal" gap={3}>
                     <Form.Control type="number" value={quantity} onChange={handleChangeQuantity} min={1} />
                     <Button variant="primary" onClick={handleAdd}>Thêm</Button>
-                    <Button variant="warning">Sữa</Button>
-                    <Button variant="danger" >xóa</Button>
                 </Stack>
             </Card.Body>
         </Card>

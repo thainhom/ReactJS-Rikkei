@@ -28,6 +28,9 @@ const cartReducer = createReducer({ cart: [], numberOfItems: 0, total: 0 }, {
         }
 
 
+    },
+    CHANGE_Quantity: (state, action) =>{
+        
     }
 
 })

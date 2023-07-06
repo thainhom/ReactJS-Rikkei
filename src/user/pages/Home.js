@@ -3,37 +3,47 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Navbar from 'react-bootstrap/Navbar';
 import Badge from 'react-bootstrap/Badge';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProductList from '../../product/productList';
 
-import ProductListShopping from '../../admin/component/ProductListShopping'
 
 function Home() {
+    const navigate = useNavigate()
+    const handleLogOut = () => {
+        localStorage.removeItem("userLogin");
+        navigate("/login")
+    }
+
     const numberOfItems = useSelector(state => state.numberOfItems)
     return (
 
         <Container>
-            <ProductListShopping />
+
             <Navbar expand="lg" className="bg-body-tertiary" style={{ position: 'sticky', top: 0, zIndex: 1000 }}>
                 <Container fluid >
                     <Container>
                         <a href="/">
                             <Button variant="info">Trang chủ</Button>
                         </a>
-                        <Link to="/cart" className="float-end m-2" >
+                        <Link to="/cart" className="float-end m-1" >
                             <Button variant="warning">Giỏ hàng <Badge>{numberOfItems}</Badge></Button>
                         </Link>
 
                     </Container>
                     <Form className="d-flex">
-                        <Form.Control
+                        <Form.Control style={{
+                            width: '300px',
+                        }}
                             type="search"
                             placeholder=".  .  ."
                             className="me-2"
                             aria-label="Search"
                         />
-                        <Button variant="outline-success">Tìm...</Button>
+                        <Button className="me-2" variant="outline-success">Tìm...</Button>
+                        <Button
+                            onClick={handleLogOut}
+                            variant="outline-success">Đăng Xuất</Button>
                     </Form>
                 </Container>
             </Navbar >
