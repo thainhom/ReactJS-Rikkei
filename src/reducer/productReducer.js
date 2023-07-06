@@ -45,7 +45,7 @@ const initialState = {
         {
             id: 6,
             name: "Dior Lucky ",
-            description: "Nước hoa Dior Lucky by Maison Collection",
+            description: "Dior Lucky by Maison Collection | 10ml – 120ml Hot Hot Hot ",
             price: 120,
             imageUrl: "https://cocoboutique.vn/wp-content/uploads/2023/03/phan-biet-mui-nuoc-hoa-dior-lucky-by-maison-collection.webp",
 
@@ -69,7 +69,7 @@ const initialState = {
         {
             id: 9,
             name: "CHANEL Xanh",
-            description: "CHANEL Chance Xanh, Nước Hoa Chanel Chance Eau Fraiche 100ml",
+            description: "CHANEL Chance Xanh, Chance Eau Fraiche 100ml",
             price: 210,
             imageUrl: "https://bizweb.dktcdn.net/thumb/grande/100/145/194/products/chanel-chance-xanh-1.jpg?v=1657266782077",
 
@@ -86,10 +86,6 @@ const productReducer = createReducer(initialState, {
     DELETE_PRODUCT: (state, action) => {
         const deleteProduct = action.payload.id
         state.product = state.product.filter(product => product.id !== deleteProduct)
-
-
-
-
     }
 
 });

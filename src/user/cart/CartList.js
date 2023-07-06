@@ -6,7 +6,9 @@ import { deleteFromCart, changeQuantity } from '../../aciton/shoppingCart';
 
 function CartList() {
     const cart = useSelector(state => state.cartReducer.cart)
+    console.log("cart", cart);
     const total = useSelector(state => state.cartReducer.total)
+    console.log("total", cart);
     const dispatch = useDispatch()
 
     const handleChange = (e, id) => {
@@ -15,9 +17,10 @@ function CartList() {
         if (quantity > 0) {
             dispatch(changeQuantity(id, quantity))
         }
+        console.log(quantity);
     }
 
-    const handleDelete = (id) => {
+    const handleOder = (id) => {
         dispatch(deleteFromCart(id))
     }
 
@@ -30,11 +33,12 @@ function CartList() {
                     <th>Đơn giá</th>
                     <th>Số lượng</th>
                     <th>Thành tiền</th>
-                    <th></th>
+                    <th>Trạng thái</th>
                 </tr>
             </thead>
             <tbody>
                 {cart.map((item, index) => {
+                    console.log(111111, cart);
                     return (
                         <tr>
                             <td>{index + 1}</td>
@@ -45,7 +49,8 @@ function CartList() {
                             </td>
                             <td>${item.subTotal}</td>
                             <td>
-                                <Button variant="danger" onClick={() => handleDelete(item.id)}>Xóa</Button>
+                                <Button variant="danger" onClick={() => handleOder(item.id)}>Đặt hàng</Button>
+
                             </td>
                         </tr>
                     )

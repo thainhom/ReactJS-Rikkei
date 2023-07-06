@@ -48,7 +48,7 @@ function Home() {
                 </Container>
             </Navbar >
             <Container>
-                <h1 className='text-center'>High-End Aromatics</h1>
+
             </Container>
             <Carousel>
                 <Carousel.Item interval={1000}>
@@ -88,7 +88,7 @@ function Home() {
                 </Carousel.Item>
             </Carousel>
             <br></br>
-            <h1 className='text-center'>Danh sách sản phẩm</h1>
+            <h1 style={{ color: "white" }} className='text-center'>Danh sách sản phẩm</h1>
 
             <ProductList />
         </Container >
