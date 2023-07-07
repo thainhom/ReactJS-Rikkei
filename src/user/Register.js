@@ -1,6 +1,7 @@
 import "./Register.css";
 import { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
+import getNextId from "../utilities/getNextId";
 
 function Register() {
     const navigate = useNavigate();
@@ -78,9 +79,11 @@ function Register() {
         }
 
         const newUser = {
+            userId: getNextId(users, 'userId'),
             username: username,
             email: email,
-            password: password
+            password: password,
+            role: 'customer',
         }
         const newListUsers = [...users, newUser];
         window.localStorage.setItem("users", JSON.stringify(newListUsers));

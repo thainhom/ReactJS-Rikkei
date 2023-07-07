@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { deleteFromCart, changeQuantity } from '../../aciton/shoppingCart';
 
 function CartList() {
+
     const cart = useSelector(state => state.cartReducer.cart)
     console.log("cart", cart);
     const total = useSelector(state => state.cartReducer.total)
@@ -20,7 +21,7 @@ function CartList() {
         console.log(quantity);
     }
 
-    const handleOder = (id) => {
+    const handleDelete = (id) => {
         dispatch(deleteFromCart(id))
     }
 
@@ -49,8 +50,7 @@ function CartList() {
                             </td>
                             <td>${item.subTotal}</td>
                             <td>
-                                <Button variant="danger" onClick={() => handleOder(item.id)}>Đặt hàng</Button>
-
+                                <Button variant="danger" onClick={() => handleDelete(item.id)}>Xóa</Button>
                             </td>
                         </tr>
                     )
@@ -60,6 +60,7 @@ function CartList() {
                 <tr>
                     <td colSpan={4}>Tổng giá đơn hàng</td>
                     <td>${total}</td>
+                    <td></td>
                 </tr>
             </tfoot>
         </Table>

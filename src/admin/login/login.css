@@ -1,7 +1,7 @@
 @import url(https://fonts.googleapis.com/css?family=Exo:100,200,400);
 @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:700,400,300);
 
-body {
+/* html {
   margin: 0;
   padding: 0;
   background: #fff;
@@ -9,7 +9,7 @@ body {
   color: #fff;
   font-family: Arial;
   font-size: 12px;
-}
+} */
 
 .body {
   position: absolute;

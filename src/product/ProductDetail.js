@@ -5,7 +5,8 @@ import Badge from 'react-bootstrap/Badge';
 import Stack from 'react-bootstrap/Stack';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addToCart } from '../aciton/shoppingCart'
+import { addToCart } from '../aciton/shoppingCart';
+
 const ProductDetail = ({ product }) => {
     const [quantity, setQuantity] = useState(1)
     const dispatch = useDispatch();
@@ -19,9 +20,12 @@ const ProductDetail = ({ product }) => {
     }
 
     const handleAdd = () => {
-        dispatch(addToCart(product, quantity))
-        console.log(product, quantity);
+        dispatch(addToCart({
+            ...product,
+            quantity: quantity,
+        }))
 
+        console.log(product, quantity);
     }
 
     return (
@@ -30,7 +34,7 @@ const ProductDetail = ({ product }) => {
             <Card.Img variant="top" src={product.imageUrl} />
             <Card.Body>
                 <Card.Title>{product.name}</Card.Title>
-                <Badge bg="secondary">${product.price}</Badge>
+                <Badge bg="secondary">${product.unitPrice}</Badge>
                 <Card.Text>{product.description}</Card.Text>
                 <Stack direction="horizontal" gap={3}>
                     <Form.Control type="number" value={quantity} onChange={handleChangeQuantity} min={1} />

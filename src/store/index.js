@@ -2,7 +2,8 @@ import productReducer from "../reducer/productReducer"
 import cartReducer from "../reducer/cartReducer"
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 let reducer = combineReducers({
-    productReducer, cartReducer
+    productReducer: productReducer,
+    cartReducer: cartReducer
 })
 const store = configureStore({
 

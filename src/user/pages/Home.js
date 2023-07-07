@@ -14,8 +14,7 @@ function Home() {
         localStorage.removeItem("userLogin");
         navigate("/login")
     }
-
-    const numberOfItems = useSelector(state => state.numberOfItems)
+    const numberOfItems = useSelector(state => state.cartReducer.numberOfItems)
     return (
 
         <Container>

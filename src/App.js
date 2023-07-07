@@ -6,6 +6,8 @@ import { Routes, Route } from "react-router-dom";
 // import LoginAdmin from "./admin/login/LoginAdmin"
 import Register from "./user/Register"
 import Home from "./user/pages/Home";
+import LoginAdmin from "./admin/login/LoginAdmin";
+import HomeAdmin from "./admin/homeAdmin/HomeAdmin";
 function App() {
   return (
     <>
@@ -14,7 +16,8 @@ function App() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/login" element={<Login />} />
         <Route path="/home" element={<Home />} />
-
+        <Route path="/loginAdmin" element={<LoginAdmin />} />
+        <Route path="/homeAdmin" element={<HomeAdmin />} />
       </Routes>
 
 
