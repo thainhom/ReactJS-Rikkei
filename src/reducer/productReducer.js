@@ -37,7 +37,7 @@ const initialState = {
         {
             id: 5,
             name: "Dior Joy EDP",
-            description: " Nước Hoa Nữ Dior Joy EDP  JOLI COSMETIC",
+            description: " Nước Hoa Dior Joy EDP Intense 90ML - Thơm Lâu Hơn",
             unitPrice: 110,
             imageUrl: "https://product.hstatic.net/200000150709/product/nuoc-hoa-nu-dior-joy-anh3-hangngoainhap1-vn_63f63f856c944520aef6e0c75a922aaa.jpg",
 
@@ -45,7 +45,7 @@ const initialState = {
         {
             id: 6,
             name: "Dior Lucky ",
-            description: "Dior Lucky by Maison Collection | 10ml – 120ml Hot Hot Hot ",
+            description: "Dior Lucky by Maison Collection | 10ml - 120ml Hot Hot Hot ",
             unitPrice: 120,
             imageUrl: "https://cocoboutique.vn/wp-content/uploads/2023/03/phan-biet-mui-nuoc-hoa-dior-lucky-by-maison-collection.webp",
 

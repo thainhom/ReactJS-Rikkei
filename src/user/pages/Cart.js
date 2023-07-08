@@ -1,8 +1,8 @@
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
+import { Link } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
 import CartList from '../cart/CartList';
-import { Link } from 'react-router-dom';
 import { checkout } from '../../aciton/shoppingCart';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';

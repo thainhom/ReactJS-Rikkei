@@ -8,6 +8,9 @@ import Register from "./user/Register"
 import Home from "./user/pages/Home";
 import LoginAdmin from "./admin/login/LoginAdmin";
 import HomeAdmin from "./admin/homeAdmin/HomeAdmin";
+import ManagerOrders from "./admin/homeAdmin/home/managerOrders";
+import ManagerProduct from "./admin/homeAdmin/home/managerProduct";
+import ManagerUser from "./admin/homeAdmin/home/managerUser";
 function App() {
   return (
     <>
@@ -18,6 +21,10 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/loginAdmin" element={<LoginAdmin />} />
         <Route path="/homeAdmin" element={<HomeAdmin />} />
+        <Route path="/adminOder" element={<ManagerOrders />} />
+        <Route path="/adminProduct" element={<ManagerProduct />} />
+        <Route path="/adminUsers" element={<ManagerUser />} />
+
       </Routes>
 
 

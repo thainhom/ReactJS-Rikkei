@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./Register.css";
 import { useNavigate } from "react-router-dom";
-
+import Form from 'react-bootstrap/Form';
 function Login() {
     const [userName, setUserName] = useState("")
     const [password, setPassword] = useState("");
@@ -52,6 +52,10 @@ function Login() {
                         <label>Password</label><br></br>
                         <span className="error">{errorPassword}</span><br></br>
                     </div>
+                    <Form.Select className="user-box" size="sm">
+                        <option>User</option>
+                        <option>Admin</option>
+                    </Form.Select>
 
                     <button type="submit" >
                         <a >

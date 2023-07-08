@@ -2,7 +2,9 @@ import "./Register.css";
 import { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import getNextId from "../utilities/getNextId";
-
+import { Link } from 'react-router-dom';
+import Button from 'react-bootstrap/Button';
+import Alert from 'react-bootstrap/Alert';
 function Register() {
     const navigate = useNavigate();
     const [username, setUsername] = useState('')
@@ -54,7 +56,8 @@ function Register() {
         }
         if (password !== confirmPassword) {
             hasError = true;
-            alert("Mật khẩu chưa trùng khớp")
+            alert("mật khẩu không trùng khớp")
+
 
         }
 
@@ -72,8 +75,15 @@ function Register() {
                     await setErrorEmail("Địa chỉ email đã tồn tại")
                 }
                 break;
+                setErrorUsername("")
+                setErrorEmail("")
+                setErrorPassword("")
+                setErrorConfirmPassword("")
             }
         }
+
+
+
         if (hasError) {
             return;
         }
@@ -88,6 +98,8 @@ function Register() {
         const newListUsers = [...users, newUser];
         window.localStorage.setItem("users", JSON.stringify(newListUsers));
         navigate('/login');
+
+
     }
 
     return (
@@ -123,8 +135,6 @@ function Register() {
                         {<span className="error">{errorConfirmPassword}</span>}<br></br>
                         <label>Confirm Password </label><br></br>
                     </div>
-                    {/* <button
-                        type="submit" className="btn btn-primary">Submit</button> */}
                     <button type="submit"  >
                         <a >
                             <span></span>
@@ -140,6 +150,16 @@ function Register() {
                             <span></span>
                             <span></span>
                             LOGIN
+                        </a></button>
+                    <button >
+                        <a href="/loginAdmin">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <Link to="/loginAdmin" className="float-end m-1">
+                                ADMIN
+                            </Link>
                         </a></button>
                 </form>
             </div>
