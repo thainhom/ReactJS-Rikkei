@@ -2,15 +2,15 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
-import { addProduct } from "../../aciton/shoppingCart"
+// import { addProduct } from "../aciton/shoppingCart"
 import { useDispatch, useSelector } from 'react-redux';
 
-function Modals() {
+function ModalProduct() {
     const ModalsaddProduct = useSelector((state) => state.productReducer.product)
     console.log(111111111111111, ModalsaddProduct);
     const [show, setShow] = useState(false);
     const [value, setValue] = useState()
-    const dispatch = useDispatch()
+    // const dispatch = useDispatch()
     const handleClose = () => setShow(false);
     const dandleShow = (data) => {
         setShow(true);
@@ -23,9 +23,9 @@ function Modals() {
     return (
         <>
             <Button
-                className="float-end m-2"
+                className="float-end m-1"
                 variant="success" onClick={dandleShow}>
-                Thêm sản phẩm
+                Add Product
             </Button>
 
             <Modal
@@ -35,29 +35,36 @@ function Modals() {
                 keyboard={false}
             >
                 <Modal.Header closeButton>
-                    <Modal.Title> ADD_PRODUCT</Modal.Title>
+                    <Modal.Title> ADD_User</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Form.Label>Tên sản phẩm</Form.Label>
+                    <Form.Label>Tên Đăng nhập</Form.Label>
                     <Form.Control
                         value={value}
                         onChange={() => handleChange()}
                         type="text" placeholder="Nhập sản phẩm" />
-                    <Form.Label>Mô tả</Form.Label>
+                    <Form.Label>Email</Form.Label>
                     <Form.Control
                         value={value}
                         onChange={() => handleChange()}
                         type="text" placeholder="Nhập sản phẩm" />
-                    <Form.Label>Giá</Form.Label>
+                    <Form.Label>Vai Trò</Form.Label>
                     <Form.Control
                         value={value}
                         onChange={() => handleChange()}
                         type="text" placeholder="Nhập giá" />
-                    <Form.Label>Hình ảnh</Form.Label>
+                    <Form.Label>Thời gian tạo</Form.Label>
                     <Form.Control
+                        disabled
                         value={value}
                         onChange={() => handleChange()}
-                        type="text" placeholder="Nhập hình ảnh" />
+                        type="text" placeholder="" />
+                    <Form.Label>Thời gian cập nhập</Form.Label>
+                    <Form.Control
+                        disabled
+                        value={value}
+                        onChange={() => handleChange()}
+                        type="text" placeholder="" />
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
@@ -72,4 +79,4 @@ function Modals() {
     );
 }
 
-export default Modals;
+export default ModalProduct;

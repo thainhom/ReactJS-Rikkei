@@ -22,7 +22,7 @@ function Home() {
             <Navbar expand="lg" className="bg-body-tertiary" style={{ position: 'sticky', top: 0, zIndex: 1000 }}>
                 <Container fluid >
                     <Container>
-                        <a href="/">
+                        <a href="/home">
                             <Button variant="info">Trang chủ</Button>
                         </a>
                         <Link to="/cart" className="float-end m-1" >

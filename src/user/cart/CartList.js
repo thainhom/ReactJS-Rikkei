@@ -39,7 +39,7 @@ function CartList() {
             </thead>
             <tbody>
                 {cart.map((item, index) => {
-                    console.log(111111, cart);
+                    console.log("cartList", cart);
                     return (
                         <tr>
                             <td>{index + 1}</td>

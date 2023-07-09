@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import getNextId from "../utilities/getNextId";
 import { Link } from 'react-router-dom';
-import Button from 'react-bootstrap/Button';
-import Alert from 'react-bootstrap/Alert';
+import moment from "moment/moment";
+
 function Register() {
     const navigate = useNavigate();
     const [username, setUsername] = useState('')
@@ -94,6 +94,8 @@ function Register() {
             email: email,
             password: password,
             role: 'customer',
+            createdAt: moment().format('YYYY-MM-DD HH:mm:ss'),
+            updatedAt: moment().format('YYYY-MM-DD HH:mm:ss'),
         }
         const newListUsers = [...users, newUser];
         window.localStorage.setItem("users", JSON.stringify(newListUsers));

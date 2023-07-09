@@ -4,7 +4,7 @@ import getNextId from "../utilities/getNextId";
 
 const calculateTotal = (cart) => {
     let total = 0;
-    
+
     for (let item of cart) {
         total += item.subTotal;
     }
@@ -16,6 +16,7 @@ const getCartFromLocalStorage = () => {
 }
 
 const cart = getCartFromLocalStorage();
+console.log("cart1", cart);
 
 const initState = {
     cart: cart,
@@ -92,43 +93,16 @@ const cartReducer = createReducer(initState, {
             numberOfItems: 0,
             total: 0
         }
+    },
+    DELETE_FROM_CART: (state, aciton) => {
+        const idFromCart = aciton.payload
+        console.log("action", idFromCart);
+        const cart = [...state.cartReducer.cart]
+        console.log("listdelete", cart);
+        cart.filter(item => item.id !== idFromCart)
+
     }
 })
+
 export default cartReducer
 
-
-// import { createSlice } from '@reduxjs/toolkit';
-
-// const cartReducer = createSlice({
-//     name: 'cart',
-//     initialState: [],
-//     reducers: {
-//        addToCart: (state, action) => {
-//                     console.log(111111, state);
-//                     console.log(111111, state.product, state.cart);
-//                     let cart = []
-//                     let isExist = false
-//                     cart = state.cart.map(item => {
-//                         if (item.id === action.payload.id) {
-//                             isExist = true
-//                             item.quantity = item.quantity + action.payload.quantity
-//                             item.subTotal = item.unitPrice * item.quantity
-//                         }
-            
-//                         // return item
-//                     })
-            
-//                     if (!isExist) {
-//                         cart = [...cart, { ...action.payload, subTotal: action.payload.unitPrice * action.payload.quantity }]
-//                     }
-            
-//                     console.log(44444444, cart);
-//                     state.cart = cart
-            
-            
-//                 }
-//     },
-// });
-
-// export const { addToCart } = cartReducer.actions;
-// export default cartReducer.reducer;
