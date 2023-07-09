@@ -101,6 +101,12 @@ const cartReducer = createReducer(initState, {
         console.log("listdelete", cart);
         cart.filter(item => item.id !== idFromCart)
 
+    },
+    ADD_ORDER: (state, aciton) => {
+        const addOrder = window.localStorage.getItem('orders') ? JSON.parse(window.localStorage.getItem('orders')) : [];
+        const neworder = [...addOrder, aciton.payload]
+        window.localStorage.setItem('orders', JSON.stringify([...addOrder, neworder]))
+
     }
 })
 

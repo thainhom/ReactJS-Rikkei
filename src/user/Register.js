@@ -25,13 +25,21 @@ function Register() {
         const { name, value } = e.target
         if (name === 'username') {
             await setUsername(value)
+            setErrorUsername("")
         } else if (name === 'email') {
             await setEmail(value)
+            setErrorEmail("")
         } else if (name === 'password') {
             await setPassword(value)
+            setErrorPassword("")
         } else if (name === 'confirm_password') {
             await setConfirmPassword(value)
+            setErrorConfirmPassword("")
         }
+
+
+
+
     }
 
     const handleSubmit = async (e) => {
@@ -75,10 +83,7 @@ function Register() {
                     await setErrorEmail("Địa chỉ email đã tồn tại")
                 }
                 break;
-                setErrorUsername("")
-                setErrorEmail("")
-                setErrorPassword("")
-                setErrorConfirmPassword("")
+
             }
         }
 
@@ -153,16 +158,7 @@ function Register() {
                             <span></span>
                             LOGIN
                         </a></button>
-                    <button >
-                        <a href="/loginAdmin">
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                            <Link to="/loginAdmin" className="float-end m-1">
-                                ADMIN
-                            </Link>
-                        </a></button>
+
                 </form>
             </div>
         </>

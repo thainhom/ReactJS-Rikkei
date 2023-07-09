@@ -6,9 +6,26 @@ import { Link } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
 import Table from 'react-bootstrap/Table';
 import ModalProduct from "../../../modal/ModalProduct"
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteProduct, editProduct } from '../../../aciton/shoppingCart';
 function ManagerProduct() {
     const productLists = useSelector((state) => state.productReducer.product);
+    const dispatch = useDispatch
+
+
+
+
+
+
+
+
+
+
+
+    const handleDeleteProduct = (product) => {
+        dispatch(deleteProduct(product.id));
+    }
+    const handleEditProduct = () => { }
     return (
         <>
             <Navbar bg="dark" data-bs-theme="dark" style={{ position: 'sticky', top: 0, zIndex: 1000 }}>
@@ -62,12 +79,14 @@ function ManagerProduct() {
 
 
                                     <td>
-                                        <Button variant="warning"
+                                        <Button
+                                            onClick={handleEditProduct}
+                                            variant="warning"
                                             className=" m-1"
                                         >Sữa
                                         </Button>
 
-                                        <Button variant="danger"
+                                        <Button onClick={() => handleDeleteProduct(item.id)} variant="danger"
                                             className=" m-1"
                                         >Xóa</Button>
                                     </td>

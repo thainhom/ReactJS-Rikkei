@@ -19,9 +19,8 @@ function Login() {
                 localStorage.setItem("userLogin", JSON.stringify(listUser[i]));
                 navigate("/home")
                 break;
-            } else {
-
             }
+
         }
 
         if (userName.length === 0) {
@@ -33,7 +32,17 @@ function Login() {
             setErrorPassword("Mật khẩu bắt buộc phải nhập")
         }
     }
+    const handleChange = (event) => {
+        const { name, value } = event.target
+        if (name === "userName") {
+            setUserName(value)
+            setErrorUserName("")
+        } else if (name === "password") {
+            setPassword(value)
+            setErrorPassword("")
 
+        }
+    }
 
     return (
         <>
@@ -41,14 +50,14 @@ function Login() {
                 <h2>Login</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="user-box">
-                        <input onChange={(e) => setUserName(e.target.value)} type="text" name="" required="" />
+                        <input onChange={(e) => handleChange(e)} type="text" name="userName" required="" />
                         <label>Username</label><br></br>
                         <span className="error">{errorUsername}</span><br></br><br></br>
                     </div>
 
                     <div className="user-box">
-                        <input onChange={(e) => setPassword(e.target.value)}
-                            type="password" name="" required="" />
+                        <input onChange={(e) => handleChange(e)}
+                            type="password" name="password" required="" />
                         <label>Password</label><br></br>
                         <span className="error">{errorPassword}</span><br></br>
                     </div>

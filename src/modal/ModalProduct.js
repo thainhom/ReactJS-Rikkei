@@ -2,28 +2,54 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
-import { addProduct } from "../aciton/shoppingCart"
+import { addProduct, deleteProduct } from "../aciton/shoppingCart"
 import { useDispatch, useSelector } from 'react-redux';
 
 function ModalProduct() {
     const ModalsaddProduct = useSelector((state) => state.productReducer.product)
     const [show, setShow] = useState(false);
-    const [value, setValue] = useState()
-
+    const [name, setName] = useState("")
+    const [description, setDescription] = useState("")
+    const [unitPrice, setUnitPrice] = useState("")
+    const [imageUrl, setImageUrl] = useState("")
     const dispatch = useDispatch()
     const handleClose = () => setShow(false);
-    const dandleShow = (data) => {
+    const dandleShow = () => {
         setShow(true);
+        setName("")
+        setDescription("")
+        setUnitPrice("")
+        setImageUrl("")
     }
     const handleChange = (event) => {
-        const value = event.target.value
-        setValue(value);
+        const { name, value } = event.target
+        if (name === "name") {
+            setName(value)
+        }
+        if (name === "description") {
+            setDescription(value)
+        }
+        if (name === "unitPrice") {
+            setUnitPrice(value)
+        }
+        if (name === "imageUrl") {
+            setImageUrl(value)
+        }
+
+
     }
     const handleAddProduct = () => {
+
         dispatch(addProduct({
-            id:ModalsaddProduct.id?ModalsaddProduct.length-1
+            id: ModalsaddProduct.length ? ModalsaddProduct[ModalsaddProduct.length - 1].id + 1 : 1,
+            name: name,
+            description: description,
+            unitPrice: unitPrice,
+            imageUrl: imageUrl,
         }))
+        setShow(false);
     }
+    
 
     return (
         <>
@@ -46,30 +72,30 @@ function ModalProduct() {
                     <Form.Label>ID</Form.Label>
                     <Form.Control
                         disabled
-                        value={value}
-                        onChange={() => handleChange()}
                         type="text" placeholder="" />
                     <Form.Label>Name</Form.Label>
                     <Form.Control
-                        value={value}
-                        onChange={() => handleChange()}
+                        name="name"
+                        value={name}
+                        onChange={(e) => handleChange(e)}
                         type="text" placeholder="Nhập sản phẩm" />
                     <Form.Label>Mô tả</Form.Label>
                     <Form.Control
-                        value={value}
-                        onChange={() => handleChange()}
+                        name='description'
+                        value={description}
+                        onChange={(e) => handleChange(e)}
                         type="text" placeholder="Nhập giá" />
                     <Form.Label>Giá</Form.Label>
                     <Form.Control
-
-                        value={value}
-                        onChange={() => handleChange()}
+                        name='unitPrice'
+                        value={unitPrice}
+                        onChange={(e) => handleChange(e)}
                         type="text" placeholder="" />
                     <Form.Label>Link hình ảnh</Form.Label>
                     <Form.Control
-
-                        value={value}
-                        onChange={() => handleChange()}
+                        name='imageUrl'
+                        value={imageUrl}
+                        onChange={(e) => handleChange(e)}
                         type="text" placeholder="" />
                 </Modal.Body>
                 <Modal.Footer>
