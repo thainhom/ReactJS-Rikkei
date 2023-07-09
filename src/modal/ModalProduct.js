@@ -2,15 +2,15 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
-// import { addProduct } from "../aciton/shoppingCart"
+import { addProduct } from "../aciton/shoppingCart"
 import { useDispatch, useSelector } from 'react-redux';
 
 function ModalProduct() {
     const ModalsaddProduct = useSelector((state) => state.productReducer.product)
-    console.log(111111111111111, ModalsaddProduct);
     const [show, setShow] = useState(false);
     const [value, setValue] = useState()
-    // const dispatch = useDispatch()
+
+    const dispatch = useDispatch()
     const handleClose = () => setShow(false);
     const dandleShow = (data) => {
         setShow(true);
@@ -18,6 +18,11 @@ function ModalProduct() {
     const handleChange = (event) => {
         const value = event.target.value
         setValue(value);
+    }
+    const handleAddProduct = () => {
+        dispatch(addProduct({
+            id:ModalsaddProduct.id?ModalsaddProduct.length-1
+        }))
     }
 
     return (
@@ -71,7 +76,7 @@ function ModalProduct() {
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                     </Button>
-                    <Button variant="primary">Save</Button>
+                    <Button onClick={handleAddProduct} variant="primary">Save</Button>
                 </Modal.Footer>
             </Modal>
 
