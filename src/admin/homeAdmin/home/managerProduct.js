@@ -7,11 +7,11 @@ import Form from 'react-bootstrap/Form';
 import Table from 'react-bootstrap/Table';
 import ModalProduct from "../../../modal/ModalProduct"
 import { useSelector } from 'react-redux';
-function managerProduct() {
-    const productList = useSelector((state) => state.productReducer.product);
+function ManagerProduct() {
+    const productLists = useSelector((state) => state.productReducer.product);
     return (
         <>
-            <Navbar bg="dark" data-bs-theme="dark">
+            <Navbar bg="dark" data-bs-theme="dark" style={{ position: 'sticky', top: 0, zIndex: 1000 }}>
                 <Container>
                     <Nav className="me-auto">
                         <Link to="/home" className="float-end m-1">
@@ -46,14 +46,13 @@ function managerProduct() {
                             <th>ID </th>
                             <th>Name</th>
                             <th>description</th>
-                            <th>Vai trò</th>
                             <th>unitPrice</th>
                             <th> Hành Động </th>
 
                         </tr>
                     </thead>
                     <tbody>
-                        {productList.map((item, index) => {
+                        {productLists.map((item, index) => {
                             return (
                                 <tr key={index}>
                                     <td>{index + 1} </td>
@@ -91,4 +90,4 @@ function managerProduct() {
         </>
     )
 }
-export default managerProduct
+export default ManagerProduct

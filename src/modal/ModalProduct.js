@@ -35,33 +35,34 @@ function ModalProduct() {
                 keyboard={false}
             >
                 <Modal.Header closeButton>
-                    <Modal.Title> ADD_User</Modal.Title>
+                    <Modal.Title> ADD_Product</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Form.Label>Tên Đăng nhập</Form.Label>
-                    <Form.Control
-                        value={value}
-                        onChange={() => handleChange()}
-                        type="text" placeholder="Nhập sản phẩm" />
-                    <Form.Label>Email</Form.Label>
-                    <Form.Control
-                        value={value}
-                        onChange={() => handleChange()}
-                        type="text" placeholder="Nhập sản phẩm" />
-                    <Form.Label>Vai Trò</Form.Label>
-                    <Form.Control
-                        value={value}
-                        onChange={() => handleChange()}
-                        type="text" placeholder="Nhập giá" />
-                    <Form.Label>Thời gian tạo</Form.Label>
+                    <Form.Label>ID</Form.Label>
                     <Form.Control
                         disabled
                         value={value}
                         onChange={() => handleChange()}
                         type="text" placeholder="" />
-                    <Form.Label>Thời gian cập nhập</Form.Label>
+                    <Form.Label>Name</Form.Label>
                     <Form.Control
-                        disabled
+                        value={value}
+                        onChange={() => handleChange()}
+                        type="text" placeholder="Nhập sản phẩm" />
+                    <Form.Label>Mô tả</Form.Label>
+                    <Form.Control
+                        value={value}
+                        onChange={() => handleChange()}
+                        type="text" placeholder="Nhập giá" />
+                    <Form.Label>Giá</Form.Label>
+                    <Form.Control
+
+                        value={value}
+                        onChange={() => handleChange()}
+                        type="text" placeholder="" />
+                    <Form.Label>Link hình ảnh</Form.Label>
+                    <Form.Control
+
                         value={value}
                         onChange={() => handleChange()}
                         type="text" placeholder="" />

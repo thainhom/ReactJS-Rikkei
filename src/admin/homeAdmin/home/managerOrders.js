@@ -6,13 +6,13 @@ import { Link } from 'react-router-dom';
 import Table from 'react-bootstrap/Table';
 import Form from 'react-bootstrap/Form';
 import ModalOeder from "../../../modal/ModalOrder";
-function managerOrder() {
+function ManagerOrder() {
     const orders = JSON.parse(localStorage.getItem('orders')) ?? [];
     console.log(orders);
 
     return (
         <>
-            <Navbar bg="dark" data-bs-theme="dark">
+            <Navbar bg="dark" data-bs-theme="dark" style={{ position: 'sticky', top: 0, zIndex: 1000 }}>
                 <Container>
                     <Nav className="me-auto">
                         <Link to="/home" className="float-end m-1">
@@ -95,4 +95,4 @@ function managerOrder() {
         </>
     )
 }
-export default managerOrder
+export default ManagerOrder

@@ -6,11 +6,11 @@ import { Link } from 'react-router-dom';
 import Table from 'react-bootstrap/Table';
 import Form from 'react-bootstrap/Form';
 import ModalUser from '../../../modal/ModalUesr';
-function managerUser() {
+function ManagerUser() {
     const users = JSON.parse(window.localStorage.getItem("users"));
     return (
         <>
-            <Navbar bg="dark" data-bs-theme="dark">
+            <Navbar bg="dark" data-bs-theme="dark" style={{ position: 'sticky', top: 0, zIndex: 1000 }}>
                 <Container>
                     <Nav className="me-auto">
                         <Link to="/home" className="float-end m-1">
@@ -94,4 +94,4 @@ function managerUser() {
         </>
     )
 }
-export default managerUser
+export default ManagerUser
