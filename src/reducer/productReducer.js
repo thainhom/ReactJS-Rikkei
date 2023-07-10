@@ -90,17 +90,17 @@ const productReducer = createReducer(initialState, {
     EDIT_PRODUCT: (state, action) => {
         const editProduct = action.payload
         const updateProduct = state.product.map(product => {
-            if (product.id === editProduct) {
-                product.name = editProduct.name
-                product.description = editProduct.description
-                product.unitPrice = editProduct.unitPrice
-                product.imageUrl = editProduct.imageUrl
+            if (product.id === editProduct.id) {
+                return { ...editProduct }
             }
-            return {
-                ...state.product, editProduct,
-                product: updateProduct
-            }
+
+            return product
         })
+
+        return {
+            ...state,
+            product: updateProduct
+        }
 
 
 

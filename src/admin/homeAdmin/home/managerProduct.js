@@ -71,13 +71,7 @@ function ManagerProduct() {
 
 
                                     <td>
-                                        {/* <Button
-                                            onClick={handleEditProduct}
-                                            variant="warning"
-                                            className=" m-1"
-                                        >Sữa
-                                        </Button> */}
-                                        <ModalEditProduct />
+                                        <ModalEditProduct product={item} />
 
                                         <Button onClick={() => handleDeleteProduct(item.id)} variant="danger"
                                             className=" m-1"

@@ -5,60 +5,35 @@ import Form from 'react-bootstrap/Form';
 import { useDispatch, useSelector } from 'react-redux';
 import { editProduct } from '../../aciton/shoppingCart';
 
-function ModalEditProduct() {
+function ModalEditProduct({ product }) {
     const ModalsaddProduct = useSelector((state) => state.productReducer.product)
     const [show, setShow] = useState(false);
-    const [name, setName] = useState("")
-    const [description, setDescription] = useState("")
-    const [unitPrice, setUnitPrice] = useState("")
-    const [imageUrl, setImageUrl] = useState("")
+
+    const [draftProduct, setDraftProduct] = useState(product);
+
     const dispatch = useDispatch()
     const handleClose = () => setShow(false);
-    const dandleShow = () => {
+
+    const handleShow = () => {
         setShow(true);
-        setName("")
-        setDescription("")
-        setUnitPrice("")
-        setImageUrl("")
     }
+
     const handleChange = (event) => {
-        const { name, value } = event.target
-        if (name === "name") {
-            setName(value)
-        }
-        if (name === "description") {
-            setDescription(value)
-        }
-        if (name === "unitPrice") {
-            setUnitPrice(value)
-        }
-        if (name === "imageUrl") {
-            setImageUrl(value)
-        }
-
-
+        let tmpProduct = { ...draftProduct }
+        tmpProduct[event.target.name] = event.target.value
+        setDraftProduct({ ...tmpProduct })
     }
-    const handleUpdateProduct = () => {
 
-        dispatch(editProduct({
-            id: ModalsaddProduct.length ? ModalsaddProduct[ModalsaddProduct.length - 1].id + 1 : 1,
-            name: name,
-            description: description,
-            unitPrice: unitPrice,
-            imageUrl: imageUrl,
-        }))
+    const handleUpdateProduct = () => {
+        dispatch(editProduct({ ...draftProduct }))
         setShow(false);
     }
 
-
     return (
         <>
-            <Button
-
-                variant="warning" onClick={dandleShow}>
-                Sữa
+            <Button variant="warning" onClick={handleShow}>
+                Sửa
             </Button>
-
             <Modal
                 show={show}
                 onHide={handleClose}
@@ -76,25 +51,25 @@ function ModalEditProduct() {
                     <Form.Label>Name</Form.Label>
                     <Form.Control
                         name="name"
-                        value={name}
+                        value={draftProduct.name}
                         onChange={(e) => handleChange(e)}
                         type="text" placeholder="Nhập sản phẩm" />
                     <Form.Label>Mô tả</Form.Label>
                     <Form.Control
                         name='description'
-                        value={description}
+                        value={draftProduct.description}
                         onChange={(e) => handleChange(e)}
                         type="text" placeholder="Nhập giá" />
                     <Form.Label>Giá</Form.Label>
                     <Form.Control
                         name='unitPrice'
-                        value={unitPrice}
+                        value={draftProduct.unitPrice}
                         onChange={(e) => handleChange(e)}
                         type="text" placeholder="" />
                     <Form.Label>Link hình ảnh</Form.Label>
                     <Form.Control
                         name='imageUrl'
-                        value={imageUrl}
+                        value={draftProduct.imageUrl}
                         onChange={(e) => handleChange(e)}
                         type="text" placeholder="" />
                 </Modal.Body>
@@ -102,11 +77,11 @@ function ModalEditProduct() {
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                     </Button>
-                    <Button onClick={handleUpdateProduct} variant="primary">Save</Button>
+                    <Button
+                        onClick={handleUpdateProduct}
+                        variant="primary">Save</Button>
                 </Modal.Footer>
             </Modal>
-
-            { }
         </>
     );
 }
