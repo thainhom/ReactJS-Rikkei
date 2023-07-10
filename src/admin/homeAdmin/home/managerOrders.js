@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
 import Table from 'react-bootstrap/Table';
 import Form from 'react-bootstrap/Form';
-import ModalOeder from "../../../modal/ModalOrder";
+import ModalOrder from "../../../modal/ModalOrder";
 function ManagerOrder() {
     const orders = JSON.parse(localStorage.getItem('orders')) ?? [];
     console.log(orders);
@@ -27,7 +27,7 @@ function ManagerOrder() {
                         <Link to="/adminUsers" className="float-end m-1">
                             <Button variant="info">Manage_User</Button>
                         </Link>
-                        <ModalOeder />
+
                     </Nav>
                     <Form className="d-flex">
                         <Form.Control
@@ -67,10 +67,11 @@ function ManagerOrder() {
                                     <td>{item.createdAt} </td>
                                     <td>{item.updatedAt} </td>
                                     <td>
-                                        <Button variant="info"
+                                        {/* <Button variant="info"
                                             className=" m-1"
                                         >Xem
-                                        </Button>
+                                        </Button> */}
+                                        <ModalOrder />
 
                                         <Button variant="danger"
                                             className=" m-1"

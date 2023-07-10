@@ -84,8 +84,16 @@ const productReducer = createReducer(initialState, {
 
     },
     DELETE_PRODUCT: (state, action) => {
-        const deleteProduct = action.payload.id
+        const deleteProduct = action.payload
         state.product = state.product.filter(product => product.id !== deleteProduct)
+    },
+    EDIT_PRODUCT: (state, action) => {
+        const editProduct = action.payload
+        const updateProduct = state.product.map(product => product.id === editProduct)
+
+
+
+
     }
 
 });

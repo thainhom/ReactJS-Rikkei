@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import Table from 'react-bootstrap/Table';
 import Form from 'react-bootstrap/Form';
 import ModalUser from '../../../modal/ModalUesr';
+import ModalEditUser from "../../ModalEdit/ModalEditUser"
 function ManagerUser() {
     const users = JSON.parse(window.localStorage.getItem("users"));
     return (
@@ -66,10 +67,11 @@ function ManagerUser() {
                                     <td>{item.updatedAt} </td>
 
                                     <td>
-                                        <Button variant="warning"
+                                        {/* <Button variant="warning"
                                             className=" m-1"
                                         >Sữa
-                                        </Button>
+                                        </Button> */}
+                                        <ModalEditUser />
 
                                         <Button variant="danger"
                                             className=" m-1"

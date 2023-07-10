@@ -7,5 +7,5 @@ const addOrder = createAction("ADD_ORDER");
 const addProduct = createAction("ADD_PRODUCT");
 const deleteProduct = createAction("DELETE_PRODUCT");
 const editProduct = createAction("EDIT_PRODUCT");
-
-export { addToCart, addProduct, deleteProduct, changeQuantity, deleteFromCart, checkout, editProduct, addOrder }
+const editUser = createAction("EDIT_USER");
+export { addToCart, addProduct, deleteProduct, changeQuantity, deleteFromCart, checkout, editProduct, addOrder, editUser }

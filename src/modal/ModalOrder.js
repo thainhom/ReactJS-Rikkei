@@ -17,7 +17,7 @@ function ModalOeder() {
     const [updatedAt, setUpdateAt] = useState("");
 
     const handleClose = () => setShow(false);
-    const dandleShow = (data) => {
+    const handleShow = (data) => {
         setShow(true);
     }
     const handleChange = (event) => {
@@ -51,16 +51,15 @@ function ModalOeder() {
             status: status,
             createdAt: moment().format('YYYY-MM-DD HH:mm:ss'),
             updatedAt: moment().format('YYYY-MM-DD HH:mm:ss'),
-
         }))
     }
 
     return (
         <>
             <Button
-                className="float-end m-1"
-                variant="success" onClick={dandleShow}>
-                Add Order
+                className="float-end-m-1"
+                variant="success" onClick={handleShow}>
+                xem
             </Button>
 
             <Modal
@@ -70,7 +69,7 @@ function ModalOeder() {
                 keyboard={false}
             >
                 <Modal.Header closeButton>
-                    <Modal.Title> ADD_Order</Modal.Title>
+                    <Modal.Title> Chi tiết đơn hàng</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Form.Label>Id đơn hàng</Form.Label>
@@ -86,6 +85,7 @@ function ModalOeder() {
                         type="text" placeholder="" />
                     <Form.Label>Thời gian oder</Form.Label>
                     <Form.Control
+                        disabled
                         name='orderAt'
                         value={orderAt}
                         onChange={(e) => handleChange(e)}
@@ -102,18 +102,20 @@ function ModalOeder() {
                         value={status}
                         onChange={(e) => handleChange(e)}
                         type="text" placeholder="" />
-                    <Form.Label>Thời gian tạo</Form.Label>
+                    {/* <Form.Label>Thời gian tạo</Form.Label>
                     <Form.Control
+                        disabled
                         name='createdAt'
                         value={createdAt}
                         onChange={() => handleChange(moment().format('YYYY-MM-DD HH:mm:ss'),)}
                         type="text" placeholder="" />
                     <Form.Label>Thời gian cập nhập</Form.Label>
                     <Form.Control
+                        disabled
                         name='updatedAt'
                         value={updatedAt}
                         onChange={() => handleChange(moment().format('YYYY-MM-DD HH:mm:ss'),)}
-                        type="text" placeholder="" />
+                        type="text" placeholder="" /> */}
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
