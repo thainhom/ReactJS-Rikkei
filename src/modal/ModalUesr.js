@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
@@ -6,8 +6,7 @@ import Form from 'react-bootstrap/Form';
 import { useDispatch, useSelector } from 'react-redux';
 
 function ModalUser() {
-    const ModalsaddProduct = useSelector((state) => state.productReducer.product)
-    console.log(111111111111111, ModalsaddProduct);
+    const AddUsers = JSON.parse(window.localStorage.getItem("users")) ?? []
     const [show, setShow] = useState(false);
     const [value, setValue] = useState()
     // const dispatch = useDispatch()
@@ -18,6 +17,10 @@ function ModalUser() {
     const handleChange = (event) => {
         const value = event.target.value
         setValue(value);
+    }
+    const handleAddUsers = () => {
+        const newUsers = JSON.parse(window.localStorage.getItem("users")) ?? []
+        
     }
 
     return (
@@ -70,7 +73,7 @@ function ModalUser() {
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                     </Button>
-                    <Button variant="primary">Save</Button>
+                    <Button onClick={handleAddUsers} variant="primary">Save</Button>
                 </Modal.Footer>
             </Modal>
 

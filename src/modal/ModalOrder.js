@@ -6,7 +6,8 @@ import { addOrder } from '../aciton/shoppingCart';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from "moment/moment";
 function ModalOeder() {
-    const ModalsaddProduct = useSelector((state) => state.productReducer.product)
+    const ModalsaddProduct = JSON.parse(localStorage.getItem("orders"))
+    console.log(11111111111, ModalsaddProduct.orderAt);
     const dispatch = useDispatch()
     const [show, setShow] = useState(false);
     const [userId, setUserId] = useState("");
@@ -21,6 +22,7 @@ function ModalOeder() {
         setShow(true);
     }
     const handleChange = (event) => {
+
         const { name, value } = event.target
         if (name === "userId") {
             setUserId(value)
@@ -41,19 +43,6 @@ function ModalOeder() {
             setUpdateAt(value)
         }
     }
-    const handleAddOrder = () => {
-
-        dispatch(addOrder({
-            orderId: ModalsaddProduct.length ? ModalsaddProduct[ModalsaddProduct.length - 1].id + 1 : 1,
-            userId: userId,
-            orderAt: moment().format('YYYY-MM-DD HH:mm:ss'),
-            total: total,
-            status: status,
-            createdAt: moment().format('YYYY-MM-DD HH:mm:ss'),
-            updatedAt: moment().format('YYYY-MM-DD HH:mm:ss'),
-        }))
-    }
-
     return (
         <>
             <Button
@@ -79,49 +68,50 @@ function ModalOeder() {
                         type="text" placeholder="" />
                     <Form.Label>Id người dùng</Form.Label>
                     <Form.Control
+
                         name='userId'
-                        value={userId}
+                        value={ModalsaddProduct.userId}
                         onChange={(e) => handleChange(e)}
                         type="text" placeholder="" />
                     <Form.Label>Thời gian oder</Form.Label>
                     <Form.Control
                         disabled
                         name='orderAt'
-                        value={orderAt}
+                        value={ModalsaddProduct.orderAt}
                         onChange={(e) => handleChange(e)}
                         type="text" placeholder="" />
                     <Form.Label>Tổng tiền</Form.Label>
                     <Form.Control
                         name='total'
-                        value={total}
+                        value={ModalsaddProduct.total}
                         onChange={(e) => handleChange(e)}
                         type="text" placeholder="" />
                     <Form.Label>Trạng thái</Form.Label>
                     <Form.Control
                         name='status'
-                        value={status}
+                        value={ModalsaddProduct.status}
                         onChange={(e) => handleChange(e)}
                         type="text" placeholder="" />
-                    {/* <Form.Label>Thời gian tạo</Form.Label>
+                    <Form.Label>Thời gian tạo</Form.Label>
                     <Form.Control
                         disabled
                         name='createdAt'
-                        value={createdAt}
-                        onChange={() => handleChange(moment().format('YYYY-MM-DD HH:mm:ss'),)}
+                        value={ModalsaddProduct.createdAt}
+                        onChange={(e) => handleChange(e)}
                         type="text" placeholder="" />
                     <Form.Label>Thời gian cập nhập</Form.Label>
                     <Form.Control
                         disabled
                         name='updatedAt'
-                        value={updatedAt}
-                        onChange={() => handleChange(moment().format('YYYY-MM-DD HH:mm:ss'),)}
-                        type="text" placeholder="" /> */}
+                        value={ModalsaddProduct.updatedAt}
+                        onChange={(e) => handleChange(e)}
+                        type="text" placeholder="" />
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                     </Button>
-                    <Button onClick={handleAddOrder} variant="primary">Save</Button>
+                    <Button variant="primary">Save</Button>
                 </Modal.Footer>
             </Modal>
 

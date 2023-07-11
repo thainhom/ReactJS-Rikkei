@@ -1,6 +1,7 @@
 import { createReducer } from "@reduxjs/toolkit"
 import moment from "moment/moment";
 import getNextId from "../utilities/getNextId";
+import { deleteFromCart } from "../aciton/shoppingCart";
 
 const calculateTotal = (cart) => {
     let total = 0;
@@ -96,17 +97,30 @@ const cartReducer = createReducer(initState, {
     },
     DELETE_FROM_CART: (state, aciton) => {
         const idFromCart = aciton.payload
-        console.log("action", idFromCart);
-        const cart = [...state.cartReducer.cart]
-        console.log("listdelete", cart);
-        cart.filter(item => item.id !== idFromCart)
-
+        state.cart = state.cart.filter(c => c.id !== idFromCart)
     },
     ADD_ORDER: (state, aciton) => {
         const addOrder = window.localStorage.getItem('orders') ? JSON.parse(window.localStorage.getItem('orders')) : [];
         const neworder = [...addOrder, aciton.payload]
         window.localStorage.setItem('orders', JSON.stringify([...addOrder, neworder]))
 
+    },
+    ADD_USER: (state, aciton) => {
+        const addUser = window.localStorage.getItem('users') ? JSON.parse(window.localStorage.getItem('users')) : [];
+        const newuser = [...addUser, aciton.payload]
+        window.localStorage.setItem('users', JSON.stringify([...addUser, newuser]))
+    },
+    EDIT_USER: (state, aciton) => {
+        const editUser = window.localStorage.getItem('users') ? JSON.parse(window.localStorage.getItem('users')) : [];
+        editUser.map(user => {
+            if (user.id === aciton.payload.id) {
+                user.username = aciton.payload.username;
+                user.password = aciton.payload.password;
+                user.role = aciton.payload.role;
+                user.createdAt = aciton.payload.createdAt
+                user.updatedAt = aciton.payload.updatedAt
+            }
+        })
     }
 })
 

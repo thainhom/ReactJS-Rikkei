@@ -8,8 +8,10 @@ import Form from 'react-bootstrap/Form';
 import ModalOrder from "../../../modal/ModalOrder";
 function ManagerOrder() {
     const orders = JSON.parse(localStorage.getItem('orders')) ?? [];
-    console.log(orders);
-
+   
+    const handleDeleteOrder=()=>{
+        
+    }
     return (
         <>
             <Navbar bg="dark" data-bs-theme="dark" style={{ position: 'sticky', top: 0, zIndex: 1000 }}>
@@ -73,7 +75,9 @@ function ManagerOrder() {
                                         </Button> */}
                                         <ModalOrder />
 
-                                        <Button variant="danger"
+                                        <Button
+                                            onClick={handleDeleteOrder}
+                                            variant="danger"
                                             className=" m-1"
                                         >Xóa</Button>
                                     </td>

@@ -17,20 +17,20 @@ function Login() {
         let flag = false
         // debugger
         for (let i = 0; i < listUser.length; i++) {
-            if (listUser[i].username === userName && listUser[i].role === 'customer' && listUser[i].password === password) {
+            if (listUser[i].username === userName
+                && listUser[i].role === 'customer'
+                && listUser[i].password === password) {
                 localStorage.setItem("userLogin", JSON.stringify(listUser[i]));
                 navigate("/home")
                 break;
-            } else {
-                if (listUser[i].username !== userName) {
-                    setErrorUserName("Tên đăng nhập không đúng")
-                    break;
-                } else if (listUser[i].password !== password) {
-                    setErrorPassword("Mật khẩu không hợp lệ")
-                    break;
-                }
+
+
             }
+
+
+
         }
+
 
         if (userName.length === 0) {
             flag = true;

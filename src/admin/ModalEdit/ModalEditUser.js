@@ -6,8 +6,7 @@ import { editUser } from "../../aciton/shoppingCart"
 import { useDispatch, useSelector } from 'react-redux';
 
 function ModalUser() {
-    const ModalsaddProduct = useSelector((state) => state.productReducer.product)
-    console.log(111111111111111, ModalsaddProduct);
+    const users = JSON.parse(window.localStorage.getItem("users"));
     const [show, setShow] = useState(false);
     const [value, setValue] = useState()
     const dispatch = useDispatch()
