@@ -112,15 +112,17 @@ const cartReducer = createReducer(initState, {
     },
     EDIT_USER: (state, aciton) => {
         const editUser = window.localStorage.getItem('users') ? JSON.parse(window.localStorage.getItem('users')) : [];
-        editUser.map(user => {
+        const updateUser = editUser.map(user => {
             if (user.id === aciton.payload.id) {
                 user.username = aciton.payload.username;
                 user.password = aciton.payload.password;
                 user.role = aciton.payload.role;
                 user.createdAt = aciton.payload.createdAt
                 user.updatedAt = aciton.payload.updatedAt
+                return user;
             }
         })
+        return localStorage.setItem('users', JSON.stringify([...editUser, updateUser]))
     }
 })
 

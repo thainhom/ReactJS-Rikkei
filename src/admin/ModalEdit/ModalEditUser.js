@@ -8,18 +8,37 @@ import { useDispatch, useSelector } from 'react-redux';
 function ModalUser() {
     const users = JSON.parse(window.localStorage.getItem("users"));
     const [show, setShow] = useState(false);
-    const [value, setValue] = useState()
+    const [username, setUsername] = useState('')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
     const dispatch = useDispatch()
     const handleClose = () => setShow(false);
     const dandleShow = (data) => {
         setShow(true);
+        setUsername("")
+        setEmail("")
+        setPassword("")
     }
-    const handleChange = (event) => {
-        const value = event.target.value
-        setValue(value);
+    const handleChange = async (e) => {
+        const { name, value } = e.target
+        if (name === 'username') {
+            await setUsername(value)
+
+        } else if (name === 'email') {
+            await setEmail(value)
+
+        } else if (name === 'password') {
+            await setPassword(value)
+
+        }
     }
     const handleUpdateUsers = () => {
-        dispatch(editUser)
+        dispatch(editUser({
+            username: username,
+            email: email,
+            password: password
+
+        }))
     }
 
     return (
@@ -42,31 +61,43 @@ function ModalUser() {
                 <Modal.Body>
                     <Form.Label>Tên Đăng nhập</Form.Label>
                     <Form.Control
-                        value={value}
+                        name='username'
+                        value={users.username}
                         onChange={() => handleChange()}
-                        type="text" placeholder="Nhập sản phẩm" />
+                        type="text" placeholder="" />
                     <Form.Label>Email</Form.Label>
                     <Form.Control
-                        value={value}
+                        name='email'
+                        value={users.email}
                         onChange={() => handleChange()}
-                        type="text" placeholder="Nhập sản phẩm" />
+                        type="text" placeholder="" />
                     <Form.Label>Vai Trò</Form.Label>
                     <Form.Control
-                        value={value}
+                        name="role"
+
                         onChange={() => handleChange()}
-                        type="text" placeholder="Nhập giá" />
+                        type="text" placeholder="" />
+                    <Form.Label>Password</Form.Label>
+                    <Form.Control
+                        name="password"
+                        value={users.password}
+                        onChange={() => handleChange()}
+                        type="text" placeholder="" />
+
+                    {/* 
+                    
                     <Form.Label>Thời gian tạo</Form.Label>
                     <Form.Control
                         disabled
-                        value={value}
+                        value={}
                         onChange={() => handleChange()}
                         type="text" placeholder="" />
                     <Form.Label>Thời gian cập nhập</Form.Label>
                     <Form.Control
                         disabled
-                        value={value}
+                        value={}
                         onChange={() => handleChange()}
-                        type="text" placeholder="" />
+                        type="text" placeholder="" /> */}
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>

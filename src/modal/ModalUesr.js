@@ -2,27 +2,38 @@ import { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
-// import { addProduct } from "../aciton/shoppingCart"
+import { addUser } from '../aciton/shoppingCart';
 import { useDispatch, useSelector } from 'react-redux';
 
 function ModalUser() {
     const AddUsers = JSON.parse(window.localStorage.getItem("users")) ?? []
     const [show, setShow] = useState(false);
-    const [value, setValue] = useState()
-    // const dispatch = useDispatch()
+    const [username, setUsername] = useState('')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const dispatch = useDispatch()
     const handleClose = () => setShow(false);
-    const dandleShow = (data) => {
+    const dandleShow = () => {
         setShow(true);
     }
-    const handleChange = (event) => {
-        const value = event.target.value
-        setValue(value);
+    const handleChange = (e) => {
+        const { name, value } = e.target
+        if (name === 'username') {
+            setUsername(value)
+
+        } else if (name === 'email') {
+            setEmail(value)
+
+        } else if (name === 'password') {
+            setPassword(value)
+
+
+        }
     }
     const handleAddUsers = () => {
-        const newUsers = JSON.parse(window.localStorage.getItem("users")) ?? []
-        
+        dispatch(addUser())
+        localStorage.setItem('users', JSON.stringify(AddUsers))
     }
-
     return (
         <>
             <Button
@@ -30,7 +41,6 @@ function ModalUser() {
                 variant="success" onClick={dandleShow}>
                 Add Uesr
             </Button>
-
             <Modal
                 show={show}
                 onHide={handleClose}
@@ -43,29 +53,30 @@ function ModalUser() {
                 <Modal.Body>
                     <Form.Label>Tên Đăng nhập</Form.Label>
                     <Form.Control
-                        value={value}
-                        onChange={() => handleChange()}
+                        name='username'
+                        value={username}
+                        onChange={(e) => handleChange(e)}
                         type="text" placeholder="Nhập sản phẩm" />
                     <Form.Label>Email</Form.Label>
                     <Form.Control
-                        value={value}
-                        onChange={() => handleChange()}
+                        name='email'
+                        value={email}
+                        onChange={(e) => handleChange(e)}
                         type="text" placeholder="Nhập sản phẩm" />
-                    <Form.Label>Vai Trò</Form.Label>
+                    <Form.Label>Password</Form.Label>
                     <Form.Control
-                        value={value}
-                        onChange={() => handleChange()}
+                        name='password'
+                        value={password}
+                        onChange={(e) => handleChange(e)}
                         type="text" placeholder="Nhập giá" />
                     <Form.Label>Thời gian tạo</Form.Label>
                     <Form.Control
                         disabled
-                        value={value}
                         onChange={() => handleChange()}
                         type="text" placeholder="" />
                     <Form.Label>Thời gian cập nhập</Form.Label>
                     <Form.Control
                         disabled
-                        value={value}
                         onChange={() => handleChange()}
                         type="text" placeholder="" />
                 </Modal.Body>
@@ -76,8 +87,6 @@ function ModalUser() {
                     <Button onClick={handleAddUsers} variant="primary">Save</Button>
                 </Modal.Footer>
             </Modal>
-
-            { }
         </>
     );
 }
