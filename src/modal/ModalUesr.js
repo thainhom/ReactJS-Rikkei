@@ -11,25 +11,26 @@ function ModalUser() {
     const [username, setUsername] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+
     const dispatch = useDispatch()
     const handleClose = () => setShow(false);
+
     const dandleShow = () => {
         setShow(true);
     }
+
     const handleChange = (e) => {
         const { name, value } = e.target
         if (name === 'username') {
             setUsername(value)
-
         } else if (name === 'email') {
             setEmail(value)
 
         } else if (name === 'password') {
             setPassword(value)
-
-
         }
     }
+
     const handleAddUsers = () => {
         dispatch(addUser())
         localStorage.setItem('users', JSON.stringify(AddUsers))
@@ -56,19 +57,19 @@ function ModalUser() {
                         name='username'
                         value={username}
                         onChange={(e) => handleChange(e)}
-                        type="text" placeholder="Nhập sản phẩm" />
+                        type="text" placeholder="" />
                     <Form.Label>Email</Form.Label>
                     <Form.Control
                         name='email'
                         value={email}
                         onChange={(e) => handleChange(e)}
-                        type="text" placeholder="Nhập sản phẩm" />
+                        type="text" placeholder="" />
                     <Form.Label>Password</Form.Label>
                     <Form.Control
                         name='password'
                         value={password}
                         onChange={(e) => handleChange(e)}
-                        type="text" placeholder="Nhập giá" />
+                        type="text" placeholder="" />
                     <Form.Label>Thời gian tạo</Form.Label>
                     <Form.Control
                         disabled

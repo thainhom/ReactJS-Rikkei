@@ -9,6 +9,7 @@ const calculateTotal = (cart) => {
     for (let item of cart) {
         total += item.subTotal;
     }
+
     return total;
 }
 
@@ -98,11 +99,14 @@ const cartReducer = createReducer(initState, {
     DELETE_FROM_CART: (state, aciton) => {
         const idFromCart = aciton.payload
         state.cart = state.cart.filter(c => c.id !== idFromCart)
+
+
     },
     ADD_ORDER: (state, aciton) => {
         const addOrder = window.localStorage.getItem('orders') ? JSON.parse(window.localStorage.getItem('orders')) : [];
         const neworder = [...addOrder, aciton.payload]
         window.localStorage.setItem('orders', JSON.stringify([...addOrder, neworder]))
+
 
     },
     ADD_USER: (state, aciton) => {
@@ -110,21 +114,26 @@ const cartReducer = createReducer(initState, {
         const newuser = [...addUser, aciton.payload]
         window.localStorage.setItem('users', JSON.stringify([...addUser, newuser]))
     },
-    EDIT_USER: (state, aciton) => {
-        const editUser = window.localStorage.getItem('users') ? JSON.parse(window.localStorage.getItem('users')) : [];
-        const updateUser = editUser.map(user => {
-            if (user.id === aciton.payload.id) {
-                user.username = aciton.payload.username;
-                user.password = aciton.payload.password;
-                user.role = aciton.payload.role;
-                user.createdAt = aciton.payload.createdAt
-                user.updatedAt = aciton.payload.updatedAt
-                return user;
+    EDIT_USER: (state, action) => {
+        const users = window.localStorage.getItem('users') ? JSON.parse(window.localStorage.getItem('users')) : [];
+        const userLogin = JSON.parse(localStorage.getItem("userLogin"));
+        const updateUser = users.map(user => {
+            if (user.userId === action.payload.userId) {
+                user.username = action.payload.username;
+                user.role = action.payload.role;
+                user.updatedAt = moment().format('YYYY-MM-DD HH:mm:ss');
+                user.updatedBy = userLogin.userId
+
+                if (action.payload.password) {
+                    user.password = action.payload.password;
+                }
             }
+
+            return user;
         })
-        return localStorage.setItem('users', JSON.stringify([...editUser, updateUser]))
+        localStorage.setItem('users', JSON.stringify(updateUser))
+
     }
 })
 
 export default cartReducer
-

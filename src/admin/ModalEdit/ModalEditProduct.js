@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { editProduct } from '../../aciton/shoppingCart';
 
 function ModalEditProduct({ product }) {
-    const ModalsaddProduct = useSelector((state) => state.productReducer.product)
     const [show, setShow] = useState(false);
 
     const [draftProduct, setDraftProduct] = useState(product);

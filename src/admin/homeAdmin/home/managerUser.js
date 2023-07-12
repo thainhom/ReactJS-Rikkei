@@ -7,8 +7,21 @@ import Table from 'react-bootstrap/Table';
 import Form from 'react-bootstrap/Form';
 import ModalUser from '../../../modal/ModalUesr';
 import ModalEditUser from "../../ModalEdit/ModalEditUser"
+import { useEffect, useState } from 'react';
+
 function ManagerUser() {
-    const users = JSON.parse(window.localStorage.getItem("users"));
+    const [users, setUsers] = useState([]);
+
+    useEffect(() => {
+        const localStorageUsers = window.localStorage.getItem("users") ? JSON.parse(window.localStorage.getItem("users")) : [];
+        setUsers(localStorageUsers)
+    }, [])
+
+    const refreshUser = () => {
+        const localStorageUsers = window.localStorage.getItem("users") ? JSON.parse(window.localStorage.getItem("users")) : [];
+        setUsers(localStorageUsers)
+    }
+
     return (
         <>
             <Navbar bg="dark" data-bs-theme="dark" style={{ position: 'sticky', top: 0, zIndex: 1000 }}>
@@ -71,7 +84,7 @@ function ManagerUser() {
                                             className=" m-1"
                                         >Sữa
                                         </Button> */}
-                                        <ModalEditUser />
+                                        <ModalEditUser user={item} refreshUser={refreshUser} />
 
                                         <Button variant="danger"
                                             className=" m-1"
