@@ -9,7 +9,11 @@ import ModalProduct from "../../../modal/ModalProduct"
 import ModalEditProduct from '../../ModalEdit/ModalEditProduct';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteProduct, editProduct } from '../../../aciton/shoppingCart';
+import SimplePagination from '../../../component/SimplePagination';
+import { useState } from 'react';
 function ManagerProduct() {
+    const [product, setProduct] = useState([])
+    const [disPlayUser, setDisplayUser] = useState([]);
     const productLists = useSelector((state) => state.productReducer.product);
     const dispatch = useDispatch()
     const handleDeleteProduct = (id) => {
@@ -90,7 +94,7 @@ function ManagerProduct() {
                         </tr> */}
                     </tbody>
                 </Table>
-
+                <div className='float-end'><SimplePagination items={product} setDisplayItems={setDisplayUser} /></div>
 
             </Container>
         </>

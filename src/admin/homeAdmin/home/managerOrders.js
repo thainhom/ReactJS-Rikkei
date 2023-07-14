@@ -6,11 +6,26 @@ import { Link } from 'react-router-dom';
 import Table from 'react-bootstrap/Table';
 import Form from 'react-bootstrap/Form';
 import ModalOrder from "../../../modal/ModalOrder";
-function ManagerOrder() {
+import { useDispatch } from 'react-redux';
+import { deleteOrder } from '../../../aciton/shoppingCart';
+import { useState, useEffect } from 'react';
+function ManagerOrder({ }) {
+    const [order, setOrder] = useState([])
+
+    const dispatch = useDispatch()
     const orders = JSON.parse(localStorage.getItem('orders')) ?? [];
-   
-    const handleDeleteOrder=()=>{
-        
+    useEffect(() => {
+        refreshUser()
+    }, [])
+
+    const refreshUser = () => {
+        const localStorageUsers = window.localStorage.getItem("orders") ? JSON.parse(window.localStorage.getItem("orders")) : [];
+        setOrder(localStorageUsers)
+    }
+
+    const handleDeleteOrder = (oderId) => {
+        dispatch(deleteOrder(oderId))
+        refreshUser()
     }
     return (
         <>
@@ -43,6 +58,7 @@ function ManagerOrder() {
                 </Container>
             </Navbar>
             <Container>
+                <h1 className='text-center white'> Danh Sách Đơn Hàng</h1>
                 <Table striped bordered hover variant="dark">
                     <thead>
                         <tr>
@@ -76,7 +92,8 @@ function ManagerOrder() {
                                         <ModalOrder />
 
                                         <Button
-                                            onClick={handleDeleteOrder}
+
+                                            onClick={() => handleDeleteOrder(item.orderId)}
                                             variant="danger"
                                             className=" m-1"
                                         >Xóa</Button>

@@ -1,17 +1,23 @@
 import { useEffect, useState } from 'react';
+import moment from "moment/moment";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import { addUser } from '../aciton/shoppingCart';
 import { useDispatch, useSelector } from 'react-redux';
+import getNextId from '../utilities/getNextId';
 
-function ModalUser() {
-    const AddUsers = JSON.parse(window.localStorage.getItem("users")) ?? []
+function ModalUser({ refreshUser }) {
+    const [AddUsers, setAddUser] = useState([])
     const [show, setShow] = useState(false);
     const [username, setUsername] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [role, setRole] = useState('')
 
+    useEffect(() => {
+        refreshUser()
+    }, [])
     const dispatch = useDispatch()
     const handleClose = () => setShow(false);
 
@@ -29,11 +35,25 @@ function ModalUser() {
         } else if (name === 'password') {
             setPassword(value)
         }
+        else if (name === 'role') {
+            setRole(value)
+        }
     }
 
     const handleAddUsers = () => {
-        dispatch(addUser())
-        localStorage.setItem('users', JSON.stringify(AddUsers))
+
+        dispatch(addUser({
+            username: username,
+            email: email,
+            password: password,
+            role: role,
+            createdAt: moment().format('YYYY-MM-DD HH:mm:ss'),
+            updatedAt: moment().format('YYYY-MM-DD HH:mm:ss'),
+        }))
+
+        refreshUser()
+        setShow(false)
+
     }
     return (
         <>
@@ -69,16 +89,13 @@ function ModalUser() {
                         name='password'
                         value={password}
                         onChange={(e) => handleChange(e)}
-                        type="text" placeholder="" />
-                    <Form.Label>Thời gian tạo</Form.Label>
+                        type="password" placeholder="" />
+
+                    <Form.Label>Vai trò</Form.Label>
                     <Form.Control
-                        disabled
-                        onChange={() => handleChange()}
-                        type="text" placeholder="" />
-                    <Form.Label>Thời gian cập nhập</Form.Label>
-                    <Form.Control
-                        disabled
-                        onChange={() => handleChange()}
+                        value={role}
+                        name='role'
+                        onChange={(e) => handleChange(e)}
                         type="text" placeholder="" />
                 </Modal.Body>
                 <Modal.Footer>

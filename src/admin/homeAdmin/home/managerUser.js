@@ -8,19 +8,28 @@ import Form from 'react-bootstrap/Form';
 import ModalUser from '../../../modal/ModalUesr';
 import ModalEditUser from "../../ModalEdit/ModalEditUser"
 import { useEffect, useState } from 'react';
-
+import SimplePagination from "../../../component/SimplePagination"
+import { useDispatch } from 'react-redux';
+import { deleteUser } from '../../../aciton/shoppingCart';
 function ManagerUser() {
+    const dispatch = useDispatch()
     const [users, setUsers] = useState([]);
-
+    const [displayUser, setDisplayUser] = useState([])
+    console.log(1111, displayUser);
     useEffect(() => {
-        const localStorageUsers = window.localStorage.getItem("users") ? JSON.parse(window.localStorage.getItem("users")) : [];
-        setUsers(localStorageUsers)
+        refreshUser()
     }, [])
 
     const refreshUser = () => {
         const localStorageUsers = window.localStorage.getItem("users") ? JSON.parse(window.localStorage.getItem("users")) : [];
         setUsers(localStorageUsers)
     }
+    const handleDeleteUser = (userId) => {
+        dispatch(deleteUser(userId))
+        refreshUser()
+    }
+
+
 
     return (
         <>
@@ -39,7 +48,7 @@ function ManagerUser() {
                         <Link to="/adminUsers" className="float-end m-1">
                             <Button variant="info">Manage_User</Button>
                         </Link>
-                        <ModalUser />
+                        <ModalUser refreshUser={refreshUser} />
                     </Nav>
 
                     <Form className="d-flex">
@@ -69,7 +78,7 @@ function ManagerUser() {
                         </tr>
                     </thead>
                     <tbody>
-                        {users.map((item, index) => {
+                        {displayUser.map((item, index) => {
                             return (
                                 <tr key={index}>
                                     <td>{item.userId} </td>
@@ -86,7 +95,9 @@ function ManagerUser() {
                                         </Button> */}
                                         <ModalEditUser user={item} refreshUser={refreshUser} />
 
-                                        <Button variant="danger"
+                                        <Button
+                                            onClick={() => handleDeleteUser(item.userId)}
+                                            variant="danger"
                                             className=" m-1"
                                         >Xóa</Button>
                                     </td>
@@ -104,7 +115,7 @@ function ManagerUser() {
                     </tbody>
                 </Table>
 
-
+                <div className='float-end'><SimplePagination items={users} setDisplayItems={setDisplayUser} /></div>
             </Container>
         </>
     )

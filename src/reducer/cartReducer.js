@@ -96,23 +96,37 @@ const cartReducer = createReducer(initState, {
             total: 0
         }
     },
-    DELETE_FROM_CART: (state, aciton) => {
-        const idFromCart = aciton.payload
+    DELETE_FROM_CART: (state, action) => {
+        const idFromCart = action.payload
         state.cart = state.cart.filter(c => c.id !== idFromCart)
 
 
     },
-    ADD_ORDER: (state, aciton) => {
+    ADD_ORDER: (state, action) => {
         const addOrder = window.localStorage.getItem('orders') ? JSON.parse(window.localStorage.getItem('orders')) : [];
-        const neworder = [...addOrder, aciton.payload]
+        const neworder = [...addOrder, action.payload]
         window.localStorage.setItem('orders', JSON.stringify([...addOrder, neworder]))
 
 
+
     },
-    ADD_USER: (state, aciton) => {
+    DELETE_ORDER: (state, action) => {
+        const deleteOrder = window.localStorage.getItem('orders') ? JSON.parse(window.localStorage.getItem("orders")) : []
+        const idOrder = action.payload
+        const updateOrder = deleteOrder.filter(x => x.orderId !== idOrder)
+        localStorage.setItem('orders', JSON.stringify(updateOrder))
+        return { ...state }
+
+
+    },
+    ADD_USER: (state, action) => {
+
         const addUser = window.localStorage.getItem('users') ? JSON.parse(window.localStorage.getItem('users')) : [];
-        const newuser = [...addUser, aciton.payload]
-        window.localStorage.setItem('users', JSON.stringify([...addUser, newuser]))
+        const newuser = [...addUser, { ...action.payload, userId: getNextId(addUser, "userId") }]
+        localStorage.setItem('users', JSON.stringify([...newuser]))
+        console.log(JSON.stringify([...newuser]))
+        return { ...state }
+
     },
     EDIT_USER: (state, action) => {
         const users = window.localStorage.getItem('users') ? JSON.parse(window.localStorage.getItem('users')) : [];
@@ -133,7 +147,17 @@ const cartReducer = createReducer(initState, {
         })
         localStorage.setItem('users', JSON.stringify(updateUser))
 
+    },
+    DELETE_USER: (state, action) => {
+        const users = window.localStorage.getItem('users') ? JSON.parse(window.localStorage.getItem('users')) : [];
+        const deleteUser = action.payload
+        const newUsers = users.filter(item => item.userId !== deleteUser)
+        localStorage.setItem('users', JSON.stringify(newUsers))
+        console.log("delete", newUsers);
+        return { ...state }
     }
+
+
 })
 
 export default cartReducer
