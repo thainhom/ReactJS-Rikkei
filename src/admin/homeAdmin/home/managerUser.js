@@ -28,6 +28,17 @@ function ManagerUser() {
         dispatch(deleteUser(userId))
         refreshUser()
     }
+    const handleSearch = (e) => {
+        const searchUsers = e.target.value.toLowerCase();
+        const filterUser = users.filter((user) => {
+            console.log("search", filterUser);
+            return (
+                user.username.toLowerCase().includes(searchUsers) || user.email.toLowerCase().includes(searchUsers)
+            )
+        })
+        setDisplayUser(filterUser)
+
+    }
 
 
 
@@ -48,22 +59,26 @@ function ManagerUser() {
                         <Link to="/adminUsers" className="float-end m-1">
                             <Button variant="info">Manage_User</Button>
                         </Link>
-                        <ModalUser refreshUser={refreshUser} />
+
                     </Nav>
-
-                    <Form className="d-flex">
-                        <Form.Control
-                            type="search"
-                            placeholder="Search"
-                            className="me-2"
-                            aria-label="Search"
-                        />
-                        <Button variant="outline-success">Search</Button>
-                    </Form>
-
                 </Container>
             </Navbar>
             <Container>
+                <h1 className='text-center text-info'>Danh sách người dùng </h1>
+                <Form className="d-flex mb-2">
+                    <Form.Control
+                        type="search"
+                        placeholder="Search"
+                        className="me-2"
+                        aria-label="Search"
+                    />
+                    <Button
+
+                        onChange={handleSearch}
+                        variant="outline-success">Search</Button>
+                </Form>
+                <ModalUser refreshUser={refreshUser} />
+
                 <Table striped bordered hover variant="dark">
                     <thead>
                         <tr>

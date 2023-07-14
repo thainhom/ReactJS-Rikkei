@@ -1,13 +1,16 @@
 import Pagination from 'react-bootstrap/Pagination';
 import { useState, useEffect } from 'react';
+
+const NUMBER_ITEMS_PER_PAGE = 5;
+
 function SimplePagination({ items, setDisplayItems }) {
     const [curentPage, setCurentPage] = useState(1);
     const [totalPage, setTotalPage] = useState(0);
     useEffect(() => {
-        setTotalPage(Math.ceil(items.length / 10))
+        setTotalPage(Math.ceil(items.length / NUMBER_ITEMS_PER_PAGE))
         // displayItems
-        const firstPosition = (curentPage - 1) * 10
-        const lastPosition = firstPosition + 10
+        const firstPosition = (curentPage - 1) * NUMBER_ITEMS_PER_PAGE
+        const lastPosition = firstPosition + NUMBER_ITEMS_PER_PAGE
         setDisplayItems(items.slice(firstPosition, lastPosition))
     }, [items, curentPage])
     let pages = []

@@ -2,7 +2,7 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
 import Table from 'react-bootstrap/Table';
 import ModalProduct from "../../../modal/ModalProduct"
@@ -10,12 +10,14 @@ import ModalEditProduct from '../../ModalEdit/ModalEditProduct';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteProduct, editProduct } from '../../../aciton/shoppingCart';
 import SimplePagination from '../../../component/SimplePagination';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+
 function ManagerProduct() {
-    const [product, setProduct] = useState([])
-    const [disPlayUser, setDisplayUser] = useState([]);
+    const [displayProducts, setDisplayProducts] = useState([]);
     const productLists = useSelector((state) => state.productReducer.product);
+
     const dispatch = useDispatch()
+
     const handleDeleteProduct = (id) => {
         dispatch(deleteProduct(id));
     }
@@ -39,20 +41,21 @@ function ManagerProduct() {
                         <Link to="/adminUsers" className="float-end m-1">
                             <Button variant="info">Manage_User</Button>
                         </Link>
-                        <ModalProduct />
                     </Nav>
-                    <Form className="d-flex">
-                        <Form.Control
-                            type="search"
-                            placeholder="Search"
-                            className="me-2"
-                            aria-label="Search"
-                        />
-                        <Button variant="outline-success">Search</Button>
-                    </Form>
                 </Container>
             </Navbar>
             <Container>
+                <h1 className='text-center text-info'>Danh sách sản phẩm</h1>
+                <Form className="d-flex mb-2">
+                    <Form.Control
+                        type="search"
+                        placeholder="Search"
+                        className="me-2"
+                        aria-label="Search"
+                    />
+                    <Button variant="outline-success">Search</Button>
+                </Form>
+                <ModalProduct />
                 <Table striped bordered hover variant="dark">
                     <thead>
                         <tr>
@@ -65,7 +68,7 @@ function ManagerProduct() {
                         </tr>
                     </thead>
                     <tbody>
-                        {productLists.map((item, index) => {
+                        {displayProducts.map((item, index) => {
                             return (
                                 <tr key={index}>
                                     <td>{index + 1} </td>
@@ -94,7 +97,7 @@ function ManagerProduct() {
                         </tr> */}
                     </tbody>
                 </Table>
-                <div className='float-end'><SimplePagination items={product} setDisplayItems={setDisplayUser} /></div>
+                <div className='float-end'><SimplePagination items={productLists} setDisplayItems={setDisplayProducts} /></div>
 
             </Container>
         </>

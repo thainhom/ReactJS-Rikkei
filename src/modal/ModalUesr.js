@@ -23,6 +23,11 @@ function ModalUser({ refreshUser }) {
 
     const dandleShow = () => {
         setShow(true);
+        setUsername("")
+        setEmail("")
+        setPassword("")
+        setRole("")
+
     }
 
     const handleChange = (e) => {

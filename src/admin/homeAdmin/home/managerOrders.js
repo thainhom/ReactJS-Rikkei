@@ -9,23 +9,24 @@ import ModalOrder from "../../../modal/ModalOrder";
 import { useDispatch } from 'react-redux';
 import { deleteOrder } from '../../../aciton/shoppingCart';
 import { useState, useEffect } from 'react';
+import SimplePagination from "../../../component/SimplePagination"
 function ManagerOrder({ }) {
     const [order, setOrder] = useState([])
+    const [displayOrder, setDisPlayOrder] = useState([])
 
     const dispatch = useDispatch()
-    const orders = JSON.parse(localStorage.getItem('orders')) ?? [];
     useEffect(() => {
-        refreshUser()
-    }, [])
+        refreshOrder()
+    }, [order])
 
-    const refreshUser = () => {
+    const refreshOrder = () => {
         const localStorageUsers = window.localStorage.getItem("orders") ? JSON.parse(window.localStorage.getItem("orders")) : [];
         setOrder(localStorageUsers)
     }
 
     const handleDeleteOrder = (oderId) => {
         dispatch(deleteOrder(oderId))
-        refreshUser()
+        refreshOrder()
     }
     return (
         <>
@@ -44,21 +45,21 @@ function ManagerOrder({ }) {
                         <Link to="/adminUsers" className="float-end m-1">
                             <Button variant="info">Manage_User</Button>
                         </Link>
-
                     </Nav>
-                    <Form className="d-flex">
-                        <Form.Control
-                            type="search"
-                            placeholder="Search"
-                            className="me-2"
-                            aria-label="Search"
-                        />
-                        <Button variant="outline-success">Search</Button>
-                    </Form>
                 </Container>
             </Navbar>
             <Container>
-                <h1 className='text-center white'> Danh Sách Đơn Hàng</h1>
+                <h1 className='text-center text-info'> Danh Sách Đơn Hàng</h1>
+
+                <Form className="d-flex mb-2">
+                    <Form.Control
+                        type="search"
+                        placeholder="Search"
+                        className="me-2"
+                        aria-label="Search"
+                    />
+                    <Button variant="outline-success">Search</Button>
+                </Form>
                 <Table striped bordered hover variant="dark">
                     <thead>
                         <tr>
@@ -74,7 +75,7 @@ function ManagerOrder({ }) {
                         </tr>
                     </thead>
                     <tbody>
-                        {orders.map((item, index) => {
+                        {displayOrder.map((item, index) => {
                             return (
                                 <tr key={index}>
                                     <td>{item.orderId} </td>
@@ -112,7 +113,7 @@ function ManagerOrder({ }) {
                     </tbody>
                 </Table>
 
-
+                <div className='float-end'><SimplePagination items={order} setDisplayItems={setDisPlayOrder} /></div>
             </Container>
         </>
     )
