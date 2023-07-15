@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import moment from "moment/moment";
 function ModalOeder() {
     const ModalsaddProduct = JSON.parse(localStorage.getItem("orders"))
-    console.log(11111111111, ModalsaddProduct.orderAt);
     const dispatch = useDispatch()
     const [show, setShow] = useState(false);
     const [userId, setUserId] = useState("");

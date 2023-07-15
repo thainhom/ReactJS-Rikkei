@@ -36,11 +36,12 @@ function Register() {
             await setConfirmPassword(value)
             setErrorConfirmPassword("")
         }
+    };
+    const validateEmail = (email) => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);// test để kiểm tra 1 chuỗi có khớp vs biểu thức hay không  và trả về true false
+    };
 
-
-
-
-    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -53,6 +54,9 @@ function Register() {
         if (email.trim().length === 0) {
             hasError = true;
             await setErrorEmail("Bắt buộc nhập địa chỉ email.")
+        } else if (!validateEmail(email)) {
+            hasError = true;
+            await setErrorEmail("Địa chỉ email không hợp lệ. Vui lòng nhập đúng định dạng email.");
         }
         if (password.trim().length === 0) {
             hasError = true;

@@ -2,7 +2,7 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
-import { Link } from 'react-router-dom';
+import { Await, Link } from 'react-router-dom';
 import Table from 'react-bootstrap/Table';
 import Form from 'react-bootstrap/Form';
 import ModalUser from '../../../modal/ModalUesr';
@@ -11,34 +11,60 @@ import { useEffect, useState } from 'react';
 import SimplePagination from "../../../component/SimplePagination"
 import { useDispatch } from 'react-redux';
 import { deleteUser } from '../../../aciton/shoppingCart';
+import { Pagination } from 'react-bootstrap';
 function ManagerUser() {
     const dispatch = useDispatch()
+    // tất cả users
     const [users, setUsers] = useState([]);
+    // user thỏa mãng điều kiện search 
     const [displayUser, setDisplayUser] = useState([])
+    // user hiên thị theo phân trang
+    const [paginationUsers, setPaginationUsers] = useState([])
+    const [searchKeyWord, setSearchKeyWord] = useState("")
     console.log(1111, displayUser);
+    console.log(2222, users);
+    // console.log(3333, paginationUsers);
     useEffect(() => {
         refreshUser()
-    }, [])
 
+    }, [])
     const refreshUser = () => {
         const localStorageUsers = window.localStorage.getItem("users") ? JSON.parse(window.localStorage.getItem("users")) : [];
         setUsers(localStorageUsers)
+
+
     }
+    useEffect(() => {
+        handleSearch()
+    }, [users])
+
     const handleDeleteUser = (userId) => {
         dispatch(deleteUser(userId))
         refreshUser()
-    }
-    const handleSearch = (e) => {
-        const searchUsers = e.target.value.toLowerCase();
-        const filterUser = users.filter((user) => {
-            console.log("search", filterUser);
-            return (
-                user.username.toLowerCase().includes(searchUsers) || user.email.toLowerCase().includes(searchUsers)
-            )
-        })
-        setDisplayUser(filterUser)
 
     }
+    const handleSearch = async (keyWord = "") => {
+
+
+        console.log("keyWord", keyWord);
+        if (!keyWord) {
+            await setDisplayUser(users)
+            console.log("users", users);
+        } else {
+            const filterUser = users.filter((user) => {
+                return (
+                    user.username.toLowerCase().includes(keyWord) || user.email.toLowerCase().includes(keyWord)
+                )
+
+            })
+            await setDisplayUser(filterUser)
+        }
+        console.log(444444, displayUser);
+
+
+
+    }
+
 
 
 
@@ -65,18 +91,17 @@ function ManagerUser() {
             </Navbar>
             <Container>
                 <h1 className='text-center text-info'>Danh sách người dùng </h1>
-                <Form className="d-flex mb-2">
+                <div className="d-flex mb-2">
                     <Form.Control
+
                         type="search"
                         placeholder="Search"
                         className="me-2"
                         aria-label="Search"
+                        onChange={(e) => handleSearch(e.target.value.toLowerCase())}
                     />
-                    <Button
 
-                        onChange={handleSearch}
-                        variant="outline-success">Search</Button>
-                </Form>
+                </div>
                 <ModalUser refreshUser={refreshUser} />
 
                 <Table striped bordered hover variant="dark">
@@ -93,7 +118,7 @@ function ManagerUser() {
                         </tr>
                     </thead>
                     <tbody>
-                        {displayUser.map((item, index) => {
+                        {paginationUsers.map((item, index) => {
                             return (
                                 <tr key={index}>
                                     <td>{item.userId} </td>
@@ -130,7 +155,7 @@ function ManagerUser() {
                     </tbody>
                 </Table>
 
-                <div className='float-end'><SimplePagination items={users} setDisplayItems={setDisplayUser} /></div>
+                <div className='float-end'><SimplePagination items={displayUser} setDisplayItems={setPaginationUsers} /></div>
             </Container>
         </>
     )

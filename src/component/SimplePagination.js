@@ -15,7 +15,7 @@ function SimplePagination({ items, setDisplayItems }) {
     }, [items, curentPage])
     let pages = []
     for (let pageNumber = 1; pageNumber <= totalPage; pageNumber++) {
-        pages.push(<Pagination.Item active={pageNumber === curentPage} onClick={() => setCurentPage(pageNumber)} >{pageNumber}  </Pagination.Item>)
+        pages.push(<Pagination.Item active={pageNumber === curentPage} key={pageNumber} onClick={() => setCurentPage(pageNumber)} >{pageNumber}  </Pagination.Item>)
 
 
     }
