@@ -18,7 +18,7 @@ const getCartFromLocalStorage = () => {
 }
 
 const cart = getCartFromLocalStorage();
-console.log("cart1", cart);
+
 
 const initState = {
     cart: cart,

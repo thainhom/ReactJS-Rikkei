@@ -9,6 +9,7 @@ function ModalEditProduct({ product }) {
     const [show, setShow] = useState(false);
 
     const [draftProduct, setDraftProduct] = useState(product);
+    console.log("draftProduct", draftProduct);
 
     const dispatch = useDispatch()
     const handleClose = () => setShow(false);

@@ -13,7 +13,7 @@ import SimplePagination from '../../../component/SimplePagination';
 import { useEffect, useState } from 'react';
 
 function ManagerProduct() {
-    const [listProducts, setListProducts] = useState([])
+    const [paginationProduct, setPaginationProduct] = useState([])
     const [displayProducts, setDisplayProducts] = useState([]);
     const productLists = useSelector((state) => state.productReducer.product);
     console.log("productLists", productLists);
@@ -24,15 +24,18 @@ function ManagerProduct() {
     }
     const renderProduct = () => {
 
-        setListProducts(productLists)
+        handleSearch("")
+
     }
     useEffect(() => {
         renderProduct()
 
     }, [])
     const handleSearch = (keyWord) => {
+
+        console.log("keyWord", keyWord);
         if (!keyWord) {
-            setDisplayProducts(displayProducts)
+            setDisplayProducts(productLists)
         } else {
 
             const filteredProducts = productLists.filter((product => {
@@ -95,7 +98,7 @@ function ManagerProduct() {
                         </tr>
                     </thead>
                     <tbody>
-                        {displayProducts.map((item, index) => {
+                        {paginationProduct.map((item, index) => {
                             return (
                                 <tr key={index}>
                                     <td>{index + 1} </td>
@@ -124,7 +127,7 @@ function ManagerProduct() {
                         </tr> */}
                     </tbody>
                 </Table>
-                <div className='float-end'><SimplePagination items={productLists} setDisplayItems={setDisplayProducts} /></div>
+                <div className='float-end'><SimplePagination items={displayProducts} setDisplayItems={setPaginationProduct} /></div>
 
             </Container>
         </>

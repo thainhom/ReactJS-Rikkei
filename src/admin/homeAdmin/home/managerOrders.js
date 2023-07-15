@@ -10,7 +10,7 @@ import { useDispatch } from 'react-redux';
 import { deleteOrder } from '../../../aciton/shoppingCart';
 import { useState, useEffect } from 'react';
 import SimplePagination from "../../../component/SimplePagination"
-function ManagerOrder({ }) {
+function ManagerOrder() {
     const [order, setOrder] = useState([])
     const [displayOrder, setDisPlayOrder] = useState([])
 
@@ -85,6 +85,7 @@ function ManagerOrder({ }) {
                             <th>Tên người đăt</th>
                             <th>Thời gian đặt</th>
                             <th> Tổng giá</th>
+                            <th> Ghi chú</th>
                             <th>Trạng thái</th>
                             <th>Thời gian tạo</th>
                             <th> Thời gian cập nhập</th>
@@ -100,6 +101,7 @@ function ManagerOrder({ }) {
                                     <td>{item.userId} </td>
                                     <td>{item.orderAt} </td>
                                     <td>{item.total} </td>
+                                    <td>{item.role} </td>
                                     <td>{item.status} </td>
                                     <td>{item.createdAt} </td>
                                     <td>{item.updatedAt} </td>
@@ -108,7 +110,9 @@ function ManagerOrder({ }) {
                                             className=" m-1"
                                         >Xem
                                         </Button> */}
-                                        <ModalOrder />
+                                        <ModalOrder
+
+                                            order={item} />
 
                                         <Button
 
