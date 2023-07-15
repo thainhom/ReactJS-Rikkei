@@ -13,15 +13,41 @@ import SimplePagination from '../../../component/SimplePagination';
 import { useEffect, useState } from 'react';
 
 function ManagerProduct() {
+    const [listProducts, setListProducts] = useState([])
     const [displayProducts, setDisplayProducts] = useState([]);
     const productLists = useSelector((state) => state.productReducer.product);
-
+    console.log("productLists", productLists);
     const dispatch = useDispatch()
 
     const handleDeleteProduct = (id) => {
         dispatch(deleteProduct(id));
     }
-    const handleEditProduct = () => {
+    const renderProduct = () => {
+
+        setListProducts(productLists)
+    }
+    useEffect(() => {
+        renderProduct()
+
+    }, [])
+    const handleSearch = (keyWord) => {
+        if (!keyWord) {
+            setDisplayProducts(displayProducts)
+        } else {
+
+            const filteredProducts = productLists.filter((product => {
+                return (
+                    product.name.toLowerCase().includes(keyWord) ||
+                    product.description.toLowerCase().includes(keyWord) ||
+                    (parseFloat(product.unitPrice).toString().includes(keyWord))
+
+                )
+            }))
+            setDisplayProducts(filteredProducts)
+        }
+
+
+
 
     }
     return (
@@ -48,12 +74,13 @@ function ManagerProduct() {
                 <h1 className='text-center text-info'>Danh sách sản phẩm</h1>
                 <Form className="d-flex mb-2">
                     <Form.Control
+                        onChange={(e) => handleSearch(e.target.value.toLowerCase())}
                         type="search"
                         placeholder="Search"
                         className="me-2"
                         aria-label="Search"
                     />
-                    <Button variant="outline-success">Search</Button>
+
                 </Form>
                 <ModalProduct />
                 <Table striped bordered hover variant="dark">

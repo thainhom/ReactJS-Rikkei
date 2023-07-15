@@ -17,7 +17,7 @@ function ManagerOrder({ }) {
     const dispatch = useDispatch()
     useEffect(() => {
         refreshOrder()
-    }, [order])
+    }, [])
 
     const refreshOrder = () => {
         const localStorageUsers = window.localStorage.getItem("orders") ? JSON.parse(window.localStorage.getItem("orders")) : [];
@@ -27,6 +27,23 @@ function ManagerOrder({ }) {
     const handleDeleteOrder = (oderId) => {
         dispatch(deleteOrder(oderId))
         refreshOrder()
+    }
+    const handleSearch = (keyWord) => {
+        if (!keyWord) {
+            setDisPlayOrder(order)
+            refreshOrder()
+        } else {
+            const searchOrder = order.filter(order => {
+                return (
+                    (parseFloat(order.orderId).toString().includes(keyWord)) ||
+                    (parseFloat(order.userId).toString().includes(keyWord)) ||
+                    (parseFloat(order.total).toString().includes(keyWord))
+
+                )
+            })
+            setDisPlayOrder(searchOrder)
+
+        }
     }
     return (
         <>
@@ -53,12 +70,13 @@ function ManagerOrder({ }) {
 
                 <Form className="d-flex mb-2">
                     <Form.Control
+                        onChange={(e) => handleSearch(e.target.value)}
                         type="search"
                         placeholder="Search"
                         className="me-2"
                         aria-label="Search"
                     />
-                    <Button variant="outline-success">Search</Button>
+
                 </Form>
                 <Table striped bordered hover variant="dark">
                     <thead>
