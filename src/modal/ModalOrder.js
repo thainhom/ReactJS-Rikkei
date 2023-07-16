@@ -19,6 +19,9 @@ function ModalOeder({ order }) {
         tmpProduct[event.target.name] = event.target.value
         setDraftOrder({ ...tmpProduct })
     }
+    const handleUpdateStatus = () => {
+        setShow(false);
+    }
     return (
         <>
             <Button
@@ -69,11 +72,26 @@ function ModalOeder({ order }) {
                         onChange={(e) => handleChange(e)}
                         type="text" placeholder="" />
                     <Form.Label>Trạng thái</Form.Label>
-                    <Form.Control
+
+                    <Form.Select
+                        name='status'
+                        value={draftOrder.status}
+
+                    >
+
+                        <option>Đơn hàng mới</option>
+                        <option>Đã xác thực</option>
+                        <option>Đang giao hàng</option>
+                        <option>Đã giao hàng</option>
+                        <option>Hoàn tất</option>
+                        <option>Bị từ chối</option>
+
+                    </Form.Select><br></br>
+                    {/* <Form.Control
                         name='status'
                         value={draftOrder.status}
                         onChange={(e) => handleChange(e)}
-                        type="text" placeholder="" />
+                        type="text" placeholder="" /> */}
                     <Form.Label>Thời gian tạo</Form.Label>
                     <Form.Control
                         disabled
@@ -93,7 +111,7 @@ function ModalOeder({ order }) {
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                     </Button>
-                    <Button variant="primary">Save</Button>
+                    <Button onClick={handleUpdateStatus} variant="primary">Save</Button>
                 </Modal.Footer>
             </Modal>
 

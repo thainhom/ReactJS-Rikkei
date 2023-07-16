@@ -6,30 +6,40 @@ import Badge from 'react-bootstrap/Badge';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProductList from '../../product/productList';
-import { useState } from 'react';
-
-
+import { useEffect, useState } from 'react';
 function Home() {
+    const numberOfItems = useSelector(state => state.cartReducer.numberOfItems)
+    const productList = useSelector(state => state.productReducer.product)
     const navigate = useNavigate()
-    const [searchKeyword, setSearchKeyword] = useState([]);
-    console.log("searchKeyword", searchKeyword);
+    // const [searchKeyword, setSearchKeyword] = useState([]);
+    const [filteredProductList, setFilteredProductList] = useState([]);
+    console.log("filteredProductList ", filteredProductList)
     const handleLogOut = () => {
         localStorage.removeItem("userLogin");
         navigate("/login")
     }
-    const numberOfItems = useSelector(state => state.cartReducer.numberOfItems)
-    const productSearchHome = useSelector(state => state.productReducer.product)
-    console.log(productSearchHome);
-    const handleSearch = (keyWord) => {
-        const searchHome = productSearchHome.filter((search) => {
-            return (
-                search.name.toLowerCase().includes(keyWord) ||
-                search.description.toLowerCase().includes(keyWord)
-            )
+    const renderProductList = () => {
+        handleSearch("")
+    }
+    useEffect(() => {
+        renderProductList()
+    }, [])
 
-        })
-        setSearchKeyword(searchHome)
-        return { ...searchKeyword }
+    const handleSearch = (keyWord) => {
+        if (!keyWord) {
+            setFilteredProductList(productList)
+        } else {
+            const searchHome = productList.filter((search) => {
+
+                return (
+                    search.name.toLowerCase().includes(keyWord) ||
+                    search.description.toLowerCase().includes(keyWord)
+                )
+            })
+            setFilteredProductList(searchHome)
+        }
+
+
 
     }
     return (
@@ -107,7 +117,10 @@ function Home() {
             <br></br>
             <h1 style={{ color: "white" }} className='text-center'>Danh sách sản phẩm</h1>
 
-            <ProductList product={searchKeyword} />
+            <ProductList
+                productList={filteredProductList}
+            />
+
         </Container >
     )
 }

@@ -7,7 +7,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../aciton/shoppingCart';
 
-const ProductDetail = ({ product }) => {
+const ProductDetail = ({ product, items, setDisPlayitems }) => {
     const [quantity, setQuantity] = useState(1)
     const dispatch = useDispatch();
 

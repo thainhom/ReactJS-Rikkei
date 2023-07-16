@@ -84,6 +84,7 @@ function ManagerOrder() {
                             <th>Mã đơn </th>
                             <th>Tên người đăt</th>
                             <th>Thời gian đặt</th>
+                            <th>Số lượng</th>
                             <th> Tổng giá</th>
                             <th> Ghi chú</th>
                             <th>Trạng thái</th>
@@ -100,8 +101,9 @@ function ManagerOrder() {
                                     <td>{item.orderId} </td>
                                     <td>{item.userId} </td>
                                     <td>{item.orderAt} </td>
+                                    <td>{item.serialNumber} </td>
                                     <td>{item.total} </td>
-                                    <td>{item.role} </td>
+                                    <td>{item.note} </td>
                                     <td>{item.status} </td>
                                     <td>{item.createdAt} </td>
                                     <td>{item.updatedAt} </td>

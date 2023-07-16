@@ -78,7 +78,7 @@ const cartReducer = createReducer(initState, {
             userId: userLogin.userId,
             orderAt: moment().format('YYYY-MM-DD HH:mm:ss'),
             total: calculateTotal(state.cart),
-            status: 1,
+            status: "Đơn hàng mới",
             note: action.payload.note,
             orderDetails: state.cart,
             createdAt: moment().format('YYYY-MM-DD HH:mm:ss'),
