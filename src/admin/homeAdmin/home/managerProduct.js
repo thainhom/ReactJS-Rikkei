@@ -30,7 +30,7 @@ function ManagerProduct() {
     useEffect(() => {
         renderProduct()
 
-    }, [])
+    }, [productLists])
     const handleSearch = (keyWord) => {
 
         console.log("keyWord", keyWord);
