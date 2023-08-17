@@ -36,7 +36,7 @@ function ManagerOrder() {
             const searchOrder = order.filter(order => {
                 return (
                     (parseFloat(order.orderId).toString().includes(keyWord)) ||
-                    (parseFloat(order.userId).toString().includes(keyWord)) ||
+                    (parseFloat(order.user_id).toString().includes(keyWord)) ||
                     (parseFloat(order.total).toString().includes(keyWord))
 
                 )
@@ -99,14 +99,14 @@ function ManagerOrder() {
                             return (
                                 <tr key={index}>
                                     <td>{item.orderId} </td>
-                                    <td>{item.userId} </td>
+                                    <td>{item.user_id} </td>
                                     <td>{item.orderAt} </td>
                                     <td>{item.serialNumber} </td>
                                     <td>{item.total} </td>
                                     <td>{item.note} </td>
                                     <td>{item.status} </td>
-                                    <td>{item.createdAt} </td>
-                                    <td>{item.updatedAt} </td>
+                                    <td>{item.created_at} </td>
+                                    <td>{item.updated_at} </td>
                                     <td>
                                         {/* <Button variant="info"
                                             className=" m-1"

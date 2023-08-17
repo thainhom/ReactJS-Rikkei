@@ -34,7 +34,7 @@ function ModalUser({ user, refreshUser }) {
 
     const handleUpdateUsers = () => {
         dispatch(editUser({
-            userId: user.userId,
+            user_id: user.user_id,
             username: username,
             email: email,
             password: password,

@@ -98,13 +98,13 @@ function Register() {
         }
 
         const newUser = {
-            userId: getNextId(users, 'userId'),
+            user_id: getNextId(users, 'user_id'),
             username: username,
             email: email,
             password: password,
             role: 'customer',
-            createdAt: moment().format('YYYY-MM-DD HH:mm:ss'),
-            updatedAt: moment().format('YYYY-MM-DD HH:mm:ss'),
+            created_at: moment().format('YYYY-MM-DD HH:mm:ss'),
+            updated_at: moment().format('YYYY-MM-DD HH:mm:ss'),
         }
         const newListUsers = [...users, newUser];
         window.localStorage.setItem("users", JSON.stringify(newListUsers));

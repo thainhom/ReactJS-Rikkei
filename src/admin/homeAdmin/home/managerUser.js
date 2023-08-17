@@ -2,67 +2,70 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
-import { Await, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Table from 'react-bootstrap/Table';
 import Form from 'react-bootstrap/Form';
 import ModalUser from '../../../modal/ModalUesr';
 import ModalEditUser from "../../ModalEdit/ModalEditUser"
 import { useEffect, useState } from 'react';
-import SimplePagination from "../../../component/SimplePagination"
+import SimplePagination, { NUMBER_ITEMS_PER_PAGE } from "../../../component/SimplePagination"
 import { useDispatch } from 'react-redux';
 import { deleteUser } from '../../../aciton/shoppingCart';
-import { Pagination } from 'react-bootstrap';
+
+import userApi from '../../api/user.api.js';
+
 function ManagerUser() {
     const dispatch = useDispatch()
+    const [keyword, setKeyword] = useState(null);
+    const [page, setPage] = useState(1);
+    const [user, setUser] = useState([])
+    const [total, setTotal] = useState(0);
+
+    useEffect(() => {
+        fetchUsers()
+    }, [keyword, page])
+    const fetchUsers = async () => {
+        try {
+            const response = await userApi.searchUsers({
+                name: keyword,
+                page: page,
+                limit: NUMBER_ITEMS_PER_PAGE,
+            });
+            console.log(response);
+            setUser(response.records); // Cập nhật user
+            setTotal(response.total);
+        } catch (error) {
+            console.error('Lỗi khi lấy danh sách người dùng:', error);
+        }
+    };
+
+
+
+
+
     // tất cả users
     const [users, setUsers] = useState([]);
-    // user thỏa mãng điều kiện search 
+    // user thỏa mãng điều kiện search `
     const [displayUser, setDisplayUser] = useState([])
     // user hiên thị theo phân trang
     const [paginationUsers, setPaginationUsers] = useState([])
     const [searchKeyWord, setSearchKeyWord] = useState("")
-    console.log(1111, displayUser);
-    console.log(2222, users);
-    // console.log(3333, paginationUsers);
     useEffect(() => {
         refreshUser()
-
     }, [])
     const refreshUser = () => {
         const localStorageUsers = window.localStorage.getItem("users") ? JSON.parse(window.localStorage.getItem("users")) : [];
         setUsers(localStorageUsers)
-
-
     }
     useEffect(() => {
         handleSearch()
     }, [users])
-
-    const handleDeleteUser = (userId) => {
-        dispatch(deleteUser(userId))
+    const handleDeleteUser = (user_id) => {
+        dispatch(deleteUser(user_id))
         refreshUser()
-
     }
     const handleSearch = async (keyWord = "") => {
-
-
-        console.log("keyWord", keyWord);
-        if (!keyWord) {
-            await setDisplayUser(users)
-            console.log("users", users);
-        } else {
-            const filterUser = users.filter((user) => {
-                return (
-                    user.username.toLowerCase().includes(keyWord) || user.email.toLowerCase().includes(keyWord)
-                )
-
-            })
-            await setDisplayUser(filterUser)
-        }
-        console.log(444444, displayUser);
-
-
-
+      
     }
 
 
@@ -118,15 +121,15 @@ function ManagerUser() {
                         </tr>
                     </thead>
                     <tbody>
-                        {paginationUsers.map((item, index) => {
+                        {user.map((item, index) => {
                             return (
                                 <tr key={index}>
-                                    <td>{item.userId} </td>
+                                    <td>{item.user_id} </td>
                                     <td>{item.username} </td>
                                     <td>{item.email} </td>
                                     <td>{item.role} </td>
-                                    <td>{item.createdAt} </td>
-                                    <td>{item.updatedAt} </td>
+                                    <td>{item.created_at} </td>
+                                    <td>{item.updated_at} </td>
 
                                     <td>
                                         {/* <Button variant="warning"
@@ -136,7 +139,7 @@ function ManagerUser() {
                                         <ModalEditUser user={item} refreshUser={refreshUser} />
 
                                         <Button
-                                            onClick={() => handleDeleteUser(item.userId)}
+                                            onClick={() => handleDeleteUser(item.user_id)}
                                             variant="danger"
                                             className=" m-1"
                                         >Xóa</Button>
@@ -144,18 +147,10 @@ function ManagerUser() {
                                 </tr>)
                         })}
 
-
-
-
-                        {/* <tr>
-                            <td>3</td>
-                            <td colSpan={4}></td>
-                            <td >Totol</td>
-                        </tr> */}
                     </tbody>
                 </Table>
 
-                <div className='float-end'><SimplePagination items={displayUser} setDisplayItems={setPaginationUsers} /></div>
+                <div className='float-end'><SimplePagination total={total} setPage={setPage} /></div>
             </Container>
         </>
     )

@@ -52,7 +52,7 @@ function ModalUser({ refreshUser }) {
             email: email,
             password: password,
             role: role,
-            createdAt: moment().format('YYYY-MM-DD HH:mm:ss'),
+            created_at: moment().format('YYYY-MM-DD HH:mm:ss'),
             updatedAt: moment().format('YYYY-MM-DD HH:mm:ss'),
         }))
 

@@ -61,7 +61,7 @@ function ProductList() {
         <>
             <Form className="d-flex">
                 <Form.Control style={{
-                    width: '935px',
+                    width: '1300px',
                 }}
                     onChange={(e) => handleSearch(e.target.value.toLowerCase())}
                     type="search"
@@ -69,7 +69,7 @@ function ProductList() {
                     className="me-2"
                     aria-label="Search"
                 />
-            </Form>
+            </Form><br></br>
             {rows.map((row, index) => {
                 return (
                     <Row key={index}>

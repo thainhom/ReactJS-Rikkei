@@ -75,16 +75,16 @@ const cartReducer = createReducer(initState, {
         const newOrder = {
             orderId: getNextId(orders, 'orderId'),
             serialNumber: getNextId(orders),
-            userId: userLogin.userId,
+            user_id: userLogin.user_id,
             orderAt: moment().format('YYYY-MM-DD HH:mm:ss'),
             total: calculateTotal(state.cart),
             status: "Đơn hàng mới",
             note: action.payload.note,
             orderDetails: state.cart,
-            createdAt: moment().format('YYYY-MM-DD HH:mm:ss'),
-            createdBy: userLogin.userId,
-            updatedAt: moment().format('YYYY-MM-DD HH:mm:ss'),
-            updatedBy: userLogin.userId,
+            created_at: moment().format('YYYY-MM-DD HH:mm:ss'),
+            createdBy: userLogin.user_id,
+            updated_at: moment().format('YYYY-MM-DD HH:mm:ss'),
+            updated_by_id: userLogin.user_id,
         }
 
         window.localStorage.setItem('orders', JSON.stringify([...orders, newOrder]))
@@ -122,7 +122,7 @@ const cartReducer = createReducer(initState, {
     ADD_USER: (state, action) => {
 
         const addUser = window.localStorage.getItem('users') ? JSON.parse(window.localStorage.getItem('users')) : [];
-        const newuser = [...addUser, { ...action.payload, userId: getNextId(addUser, "userId") }]
+        const newuser = [...addUser, { ...action.payload, user_id: getNextId(addUser, "user_id") }]
         localStorage.setItem('users', JSON.stringify([...newuser]))
         console.log(JSON.stringify([...newuser]))
         return { ...state }
@@ -132,11 +132,11 @@ const cartReducer = createReducer(initState, {
         const users = window.localStorage.getItem('users') ? JSON.parse(window.localStorage.getItem('users')) : [];
         const userLogin = JSON.parse(localStorage.getItem("userLogin"));
         const updateUser = users.map(user => {
-            if (user.userId === action.payload.userId) {
+            if (user.user_id === action.payload.user_id) {
                 user.username = action.payload.username;
                 user.role = action.payload.role;
-                user.updatedAt = moment().format('YYYY-MM-DD HH:mm:ss');
-                user.updatedBy = userLogin.userId
+                user.updated_at = moment().format('YYYY-MM-DD HH:mm:ss');
+                user.updated_by_id = userLogin.user_id
 
                 if (action.payload.password) {
                     user.password = action.payload.password;
@@ -151,7 +151,7 @@ const cartReducer = createReducer(initState, {
     DELETE_USER: (state, action) => {
         const users = window.localStorage.getItem('users') ? JSON.parse(window.localStorage.getItem('users')) : [];
         const deleteUser = action.payload
-        const newUsers = users.filter(item => item.userId !== deleteUser)
+        const newUsers = users.filter(item => item.user_id !== deleteUser)
         localStorage.setItem('users', JSON.stringify(newUsers))
         console.log("delete", newUsers);
         return { ...state }

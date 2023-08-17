@@ -48,8 +48,8 @@ function ModalOeder({ order }) {
                         type="text" placeholder="" />
                     <Form.Label>Id người dùng</Form.Label>
                     <Form.Control
-                        value={draftOrder.userId}
-                        name='userId'
+                        value={draftOrder.user_id}
+                        name='user_id'
                         onChange={(e) => handleChange(e)}
                         type="text" placeholder="" />
                     <Form.Label>Thời gian oder</Form.Label>
@@ -95,8 +95,8 @@ function ModalOeder({ order }) {
                     <Form.Label>Thời gian tạo</Form.Label>
                     <Form.Control
                         disabled
-                        name='createdAt'
-                        value={draftOrder.createdAt}
+                        name='created_at'
+                        value={draftOrder.created_at}
                         onChange={(e) => handleChange(e)}
                         type="text" placeholder="" />
                     <Form.Label>Thời gian cập nhập</Form.Label>
